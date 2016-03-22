@@ -20,8 +20,12 @@
     android:layout_height="match_parent"
     tools:context="net.sarangnamu.cloneairbnb.MainActivity">
 
+    <FrameLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <net.sarangnamu.cloneairbnb.net.sarangnamu.common.ui.tab.BkTab
+    <net.sarangnamu.common.ui.tab.BkTab
         android:id="@+id/tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

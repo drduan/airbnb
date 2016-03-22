@@ -19,9 +19,12 @@ package net.sarangnamu.cloneairbnb;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.RadioGroup;
 
-import net.sarangnamu.cloneairbnb.net.sarangnamu.common.ui.tab.BkTab;
+import net.sarangnamu.cloneairbnb.page.sub.MainFrgmt;
+import net.sarangnamu.cloneairbnb.page.sub.MessageFrgmt;
+import net.sarangnamu.cloneairbnb.page.sub.TravelFrgmt;
+import net.sarangnamu.cloneairbnb.page.sub.WishFrgmt;
+import net.sarangnamu.common.ui.tab.BkTab;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 
 public class MainActivity extends AppCompatActivity {
     private static final Logger mLog = LoggerFactory.getLogger(MainActivity.class);
@@ -47,15 +51,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTab() {
-        ArrayList<Integer> data = new ArrayList<>();
-        data.add(R.drawable.ic_filter_1_24dp);
-        data.add(R.drawable.ic_favorite_outline_24dp);
-        mTab.setData(data);data.add(R.drawable.ic_filter_1_24dp);
-        mTab.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                mLog.error("checked id : " + checkedId);
-            }
-        });
+        ArrayList<BkTab.BkTabData> data = new ArrayList<>();
+
+        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, MainFrgmt.class));
+        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, MessageFrgmt.class));
+        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, TravelFrgmt.class));
+        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, WishFrgmt.class));
+        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, null));
+
+        mTab.setTargetView(R.id.main, this);
+        mTab.setButtonPadding(20);
+        mTab.setData(data);
+        mTab.setChecked(0);
     }
 }
