@@ -152,15 +152,15 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
             return ;
         }
 
-        if (btn.getTag() instanceof View.OnClickListener) {
-            ((OnClickListener) btn.getTag()).onClick(btn);
-        } else {
+//        if (btn.getTag() instanceof View.OnClickListener) {
+//            ((OnClickListener) btn.getTag()).onClick(btn);
+//        } else {
 //            if (checkedId == 0) {
-                TabPageManager.getInstance(mActivity).add(mTargetViewId, (Class) btn.getTag());
+        TabPageManager.getInstance(mActivity).add(mTargetViewId, (Class) btn.getTag());
 //            } else {
 //                TabPageManager.getInstance(mActivity).replace(mTargetViewId, (Class) btn.getTag(), null);
 //            }
-        }
+//        }
     }
 
     public void setTargetView(@IdRes int resid, FragmentActivity activity) {
