@@ -19,6 +19,7 @@ package net.sarangnamu.cloneairbnb;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import net.sarangnamu.cloneairbnb.page.sub.MainFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.MessageFrgmt;
@@ -33,7 +34,6 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 
 public class MainActivity extends AppCompatActivity {
     private static final Logger mLog = LoggerFactory.getLogger(MainActivity.class);
@@ -57,7 +57,18 @@ public class MainActivity extends AppCompatActivity {
         data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, MessageFrgmt.class));
         data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, TravelFrgmt.class));
         data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, WishFrgmt.class));
-        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, null));
+        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mLog.isDebugEnabled()) {
+                    StringBuilder log = new StringBuilder();
+                    log.append("===================================================================\n");
+                    log.append("CLICK EVENT\n");
+                    log.append("===================================================================\n");
+                    mLog.debug(log.toString());
+                }
+            }
+        }));
 
         mTab.setTargetView(R.id.main, this);
         mTab.setButtonPadding(20);

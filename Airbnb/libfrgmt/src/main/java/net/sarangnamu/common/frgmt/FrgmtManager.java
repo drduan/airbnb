@@ -77,6 +77,10 @@ public abstract class FrgmtManager {
     }
 
     public void add(int id, Class<?> cls) {
+        add(id, cls, false);
+    }
+
+    public void add(int id, Class<?> cls, boolean transition) {
         try {
             Fragment frgmt = (Fragment) cls.newInstance();
             if (frgmt == null) {
@@ -87,6 +91,10 @@ public abstract class FrgmtManager {
             FragmentTransaction trans = mFrgmtManager.beginTransaction();
             if (frgmt.isVisible()) {
                 return;
+            }
+
+            if (transition) {
+                setTransition(trans);
             }
 
             trans.add(id, frgmt, frgmt.getClass().getName());
@@ -166,6 +174,7 @@ public abstract class FrgmtManager {
     }
 
     protected void setTransition(FragmentTransaction trans) {
+        // TODO
 //        trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
     }
 
@@ -177,6 +186,11 @@ public abstract class FrgmtManager {
     protected void setUpTransition(FragmentTransaction trans) {
         trans.setCustomAnimations(R.anim.slide_up_current, R.anim.slide_up_next,
                 R.anim.slide_down_current, R.anim.slide_down_prev);
+    }
+
+    protected void setHalfSlideTransition(FragmentTransaction trans) {
+        trans.setCustomAnimations(R.anim.slide_in_current_half, 0,
+                0, 0);
     }
 
     public Fragment getCurrentFragment() {

@@ -44,11 +44,7 @@ public abstract class InflateFrgmtBase extends FrgmtBase {
         String layoutFileName = getPrefixForPage() + getClassSimpleName();
 
         if (mLog.isDebugEnabled()) {
-            StringBuilder log = new StringBuilder();
-            log.append("===================================================================\n");
-            log.append("layoutName" + layoutFileName + "\n");
-            log.append("===================================================================\n");
-            mLog.debug(log.toString());
+            mLog.debug("load : " + layoutFileName);
         }
 
         return getResources().getIdentifier(layoutFileName, IDENTIFIER_LAYOUT,

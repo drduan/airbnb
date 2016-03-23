@@ -29,6 +29,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -86,7 +87,12 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
             btn.setDuplicateParentStateEnabled(true);
             btn.setBackgroundColor(0xffdedede);
             btn.setPadding(0, mPadding, 0, mPadding);
-            btn.setTag(data.clazz);
+
+            if (data.clazz == null) {
+                btn.setTag(data.click);
+            } else {
+                btn.setTag(data.clazz);
+            }
 
             addView(btn);
         }
@@ -120,8 +126,20 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
         }
 
         BkRadioButton btn = (BkRadioButton) group.getChildAt(checkedId);
+        if (btn == null) {
+            mLog.error("btn == null");
+            return ;
+        }
 
-        TabPageManager.getInstance(mActivity).add(mTargetViewId, (Class) btn.getTag());
+        if (btn.getTag() instanceof View.OnClickListener) {
+            ((OnClickListener) btn.getTag()).onClick(btn);
+        } else {
+//            if (checkedId == 0) {
+                TabPageManager.getInstance(mActivity).add(mTargetViewId, (Class) btn.getTag());
+//            } else {
+//                TabPageManager.getInstance(mActivity).replace(mTargetViewId, (Class) btn.getTag(), null);
+//            }
+        }
     }
 
     public void setTargetView(@IdRes int resid, FragmentActivity activity) {
@@ -132,10 +150,17 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
     public static class BkTabData {
         public int drawid;
         public Class<?> clazz;
+        public View.OnClickListener click;
 
         public BkTabData(@DrawableRes int drawid, Class<?> clazz) {
             this.drawid = drawid;
             this.clazz  = clazz;
+        }
+
+        public BkTabData(@DrawableRes int drawid, View.OnClickListener click) {
+            this.drawid = drawid;
+            this.clazz  = null;
+            this.click  = click;
         }
     }
 

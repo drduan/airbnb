@@ -18,6 +18,7 @@
 package net.sarangnamu.common.ui.tab;
 
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 
 import net.sarangnamu.common.frgmt.FrgmtManager;
 

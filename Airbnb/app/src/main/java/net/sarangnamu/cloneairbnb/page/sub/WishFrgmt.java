@@ -17,16 +17,16 @@
 
 package net.sarangnamu.cloneairbnb.page.sub;
 
-import net.sarangnamu.common.ui.tab.InflateFrgmtBase;
+import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 21.. <p/>
  */
-public class WishFrgmt extends InflateFrgmtBase {
+public class WishFrgmt extends PageFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(WishFrgmt.class);
 
     @Override
     protected void initLayout() {
-
+        super.initLayout();
     }
 }
