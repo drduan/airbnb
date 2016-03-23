@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">cloneAirBnb</string>
+    <string name="wishList">Wish List</string>
 </resources>

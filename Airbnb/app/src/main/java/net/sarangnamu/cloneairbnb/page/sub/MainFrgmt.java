@@ -17,8 +17,14 @@
 
 package net.sarangnamu.cloneairbnb.page.sub;
 
+import android.widget.LinearLayout;
+import android.widget.ViewSwitcher;
+
+import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
 import net.sarangnamu.common.ui.tab.InflateFrgmtBase;
+
+import butterknife.Bind;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 21.. <p/>
@@ -26,8 +32,14 @@ import net.sarangnamu.common.ui.tab.InflateFrgmtBase;
 public class MainFrgmt extends PageFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(MainFrgmt.class);
 
+    @Bind(R.id.view_switcher) ViewSwitcher mViewSwitcher;
+    @Bind(R.id.contentLayout) LinearLayout mContentLayout;
+
     @Override
     protected void initLayout() {
         super.initLayout();
+
+        // TODO add image
+//        mViewSwitcher.addView();
     }
 }

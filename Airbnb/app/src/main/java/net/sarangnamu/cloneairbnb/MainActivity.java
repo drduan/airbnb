@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<BkTab.BkTabData> data = new ArrayList<>();
 
         data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, MainFrgmt.class));
+        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, WishFrgmt.class));
         data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, MessageFrgmt.class));
         data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, TravelFrgmt.class));
-        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, WishFrgmt.class));
         data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
