@@ -17,11 +17,6 @@
 
 package net.sarangnamu.common.ui.tab;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import net.sarangnamu.common.FrgmtBase;
 
 /**
@@ -30,13 +25,10 @@ import net.sarangnamu.common.FrgmtBase;
 public abstract class InflateFrgmtBase extends FrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(InflateFrgmtBase.class);
 
-    private static final String PREFIX_PAGE = "page_";
-    private static final String SUFFIX_FRAGMENT = "Frgmt";
+    private static final String PREFIX_PAGE         = "page_";
+    private static final String SUFFIX_FRAGMENT     = "Frgmt";
+    private static final String IDENTIFIER_LAYOUT   = "layout";
 
-    private static final String IDENTIFIER_LAYOUT = "layout";
-
-    protected View mView;
-    protected ViewGroup mPageContent; // /< child view
     protected String mParseClassName;
 
     @Override

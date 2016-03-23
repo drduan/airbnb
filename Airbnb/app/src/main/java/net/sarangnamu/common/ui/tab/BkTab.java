@@ -19,23 +19,20 @@ package net.sarangnamu.common.ui.tab;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
-import net.sarangnamu.cloneairbnb.page.sub.MainFrgmt;
-import net.sarangnamu.common.FrgmtBase;
 
 import java.util.ArrayList;
 
@@ -72,29 +69,53 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
         mPadding = dpToPixel(dp);
     }
 
-    public void setData(ArrayList<BkTabData> dataList) {
+    public void setData(ArrayList<BkData> dataList) {
         int i = 0;
-        for (BkTabData data : dataList) {
-            BkRadioButton btn = new BkRadioButton(getContext());
-            btn.setId(i++);
-
-            RadioGroup.LayoutParams lp = getRadioButtonLayoutParams();
-
-            btn.setLayoutParams(lp);
-            btn.setGravity(Gravity.CENTER_VERTICAL);
-            btn.setButtonDrawable(data.drawid);
-            btn.setText(null);
-            btn.setDuplicateParentStateEnabled(true);
-            btn.setBackgroundColor(0xffdedede);
-            btn.setPadding(0, mPadding, 0, mPadding);
+        for (BkData data : dataList) {
+            View view;
 
             if (data.clazz == null) {
-                btn.setTag(data.click);
+                ImageButton imgbtn = new ImageButton(getContext());
+
+                if (data instanceof BkImageData) {
+                    imgbtn.setImageResource(data.getResId());
+//                    imgbtn.setText(null);
+                } else {
+//                    imgbtn.setText(data.getResId());
+                }
+
+                imgbtn.setOnClickListener(data.click);
+//                imgbtn.setGravity(Gravity.CENTER_VERTICAL);
+
+                view = imgbtn;
             } else {
-                btn.setTag(data.clazz);
+                BkRadioButton bkbtn = new BkRadioButton(getContext());
+
+                if (data instanceof BkImageData) {
+                    bkbtn.setButtonDrawable(data.getResId());
+                    bkbtn.setText(null);
+                } else {
+                    bkbtn.setText(data.getResId());
+                }
+
+                if (data.clazz == null) {
+                    bkbtn.setTag(data.click);
+                } else {
+                    bkbtn.setTag(data.clazz);
+                }
+
+                bkbtn.setGravity(Gravity.CENTER_VERTICAL);
+
+                view = bkbtn;
             }
 
-            addView(btn);
+            view.setId(i++);
+            view.setPadding(0, mPadding, 0, mPadding);
+            view.setLayoutParams(getRadioButtonLayoutParams());
+            view.setBackgroundColor(0xffdedede); // custom 필요
+            view.setDuplicateParentStateEnabled(true);
+
+            addView(view);
         }
     }
 
@@ -147,20 +168,47 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
         mActivity = activity;
     }
 
-    public static class BkTabData {
-        public int drawid;
-        public Class<?> clazz;
-        public View.OnClickListener click;
-
-        public BkTabData(@DrawableRes int drawid, Class<?> clazz) {
-            this.drawid = drawid;
-            this.clazz  = clazz;
+    public static class BkImageData extends BkData {
+        public BkImageData(@DrawableRes int drawid, Class<?> clazz) {
+            this.resid = drawid;
+            this.clazz = clazz;
         }
 
-        public BkTabData(@DrawableRes int drawid, View.OnClickListener click) {
-            this.drawid = drawid;
-            this.clazz  = null;
-            this.click  = click;
+        public BkImageData(@DrawableRes int drawid, View.OnClickListener click) {
+            this.resid = drawid;
+            this.clazz = null;
+            this.click = click;
+        }
+    }
+
+    public static class BkTextData extends BkData {
+        public BkTextData(@StringRes int strid, Class<?> clazz) {
+            this.resid = strid;
+            this.clazz = clazz;
+        }
+
+        public BkTextData(@StringRes int strid, View.OnClickListener click) {
+            this.resid = strid;
+            this.clazz = null;
+            this.click = click;
+        }
+    }
+
+    public static class BkData {
+        protected int resid;
+        protected Class<?> clazz;
+        protected View.OnClickListener click;
+
+        public int getResId() {
+            return resid;
+        }
+
+        public Class<?> getClazz() {
+            return clazz;
+        }
+
+        public View.OnClickListener getClickListener() {
+            return click;
         }
     }
 

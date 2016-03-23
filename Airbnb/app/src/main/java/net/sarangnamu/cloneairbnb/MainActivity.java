@@ -17,8 +17,11 @@
 
 package net.sarangnamu.cloneairbnb;
 
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 
 import net.sarangnamu.cloneairbnb.page.sub.MainFrgmt;
@@ -39,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private static final Logger mLog = LoggerFactory.getLogger(MainActivity.class);
 
     @Bind(R.id.tab) BkTab mTab;
+    @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @Bind(R.id.navi_view) NavigationView mNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,25 +53,20 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         initTab();
+        initLayout();
     }
 
     private void initTab() {
-        ArrayList<BkTab.BkTabData> data = new ArrayList<>();
+        ArrayList<BkTab.BkData> data = new ArrayList<>();
 
-        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, MainFrgmt.class));
-        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, WishFrgmt.class));
-        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, MessageFrgmt.class));
-        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, TravelFrgmt.class));
-        data.add(new BkTab.BkTabData(R.drawable.ic_tab_selector, new View.OnClickListener() {
+        data.add(new BkTab.BkImageData(R.drawable.ic_tab_selector, MainFrgmt.class));
+        data.add(new BkTab.BkImageData(R.drawable.ic_tab_selector, WishFrgmt.class));
+        data.add(new BkTab.BkImageData(R.drawable.ic_tab_selector, MessageFrgmt.class));
+        data.add(new BkTab.BkImageData(R.drawable.ic_tab_selector, TravelFrgmt.class));
+        data.add(new BkTab.BkImageData(R.drawable.ic_tab_selector, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mLog.isDebugEnabled()) {
-                    StringBuilder log = new StringBuilder();
-                    log.append("===================================================================\n");
-                    log.append("CLICK EVENT\n");
-                    log.append("===================================================================\n");
-                    mLog.debug(log.toString());
-                }
+                mDrawerLayout.openDrawer(Gravity.RIGHT);
             }
         }));
 
@@ -74,5 +74,19 @@ public class MainActivity extends AppCompatActivity {
         mTab.setButtonPadding(20);
         mTab.setData(data);
         mTab.setChecked(0);
+    }
+
+    private void initLayout() {
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(mNavigationView)) {
+            mDrawerLayout.closeDrawers();
+            return ;
+        }
+
+        super.onBackPressed();
     }
 }
