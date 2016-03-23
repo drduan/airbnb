@@ -38,7 +38,20 @@
             android:layout_height="wrap_content"
             android:inAnimation="@anim/fade_in"
             android:outAnimation="@anim/fade_out"
-            />
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/main_top1"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/main_top2"
+                />
+
+            </ViewSwitcher>
 
         <LinearLayout
             android:id="@+id/contentLayout"
