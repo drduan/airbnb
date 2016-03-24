@@ -15,9 +15,7 @@
  * limitations under the License.
  */
 
-package net.sarangnamu.common.ui.tab;
-
-import net.sarangnamu.common.FrgmtBase;
+package net.sarangnamu.common;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 22.. <p/>
@@ -25,9 +23,9 @@ import net.sarangnamu.common.FrgmtBase;
 public abstract class InflateFrgmtBase extends FrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(InflateFrgmtBase.class);
 
-    private static final String PREFIX_PAGE         = "page_";
-    private static final String SUFFIX_FRAGMENT     = "Frgmt";
-    private static final String IDENTIFIER_LAYOUT   = "layout";
+    protected static final String PREFIX_PAGE         = "page_";
+    protected static final String SUFFIX_FRAGMENT     = "Frgmt";
+    protected static final String IDENTIFIER_LAYOUT   = "layout";
 
     protected String mParseClassName;
 
@@ -43,7 +41,7 @@ public abstract class InflateFrgmtBase extends FrgmtBase {
                 getActivity().getPackageName());
     }
 
-    private String getClassSimpleName() {
+    protected String getClassSimpleName() {
         if (mParseClassName != null && mParseClassName.length() > 0) {
             return mParseClassName;
         }

@@ -15,10 +15,9 @@
  * limitations under the License.
  */
 
-package net.sarangnamu.common.ui.tab;
+package net.sarangnamu.cloneairbnb;
 
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 
 import net.sarangnamu.common.frgmt.FrgmtManager;
 
