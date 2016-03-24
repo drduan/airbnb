@@ -17,7 +17,7 @@
 
 package net.sarangnamu.cloneairbnb.page;
 
-import net.sarangnamu.common.ui.tab.InflateFrgmtBase;
+import net.sarangnamu.common.InflateFrgmtBase;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 23.. <p/>

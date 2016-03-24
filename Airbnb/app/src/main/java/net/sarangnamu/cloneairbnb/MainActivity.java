@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
 
-        mTab.setTargetView(R.id.main, this);
+        mTab.setFrgmtManager(R.id.main, TabPageManager.getInstance(MainActivity.this));
         mTab.setButtonPadding(20);
         mTab.setData(data);
         mTab.setChecked(0);

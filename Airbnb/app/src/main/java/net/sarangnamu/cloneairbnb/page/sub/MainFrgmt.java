@@ -22,7 +22,6 @@ import android.widget.ViewSwitcher;
 
 import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
-import net.sarangnamu.common.ui.tab.InflateFrgmtBase;
 
 import butterknife.Bind;
 

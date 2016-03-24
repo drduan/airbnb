@@ -25,19 +25,14 @@ import android.view.ViewGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AutoInflateFrgmtBase extends FrgmtBase {
+public abstract class AutoInflateFrgmtBase extends InflateFrgmtBase {
     private static final Logger mLog = LoggerFactory.getLogger(AutoInflateFrgmtBase.class);
 
     private static final String PREFIX_MENU = "mnu_";
-    private static final String PREFIX_PAGE = "page_";
-    private static final String SUFFIX_FRAGMENT = "Frgmt";
-
     private static final String IDENTIFIER_STRING = "string";
-    private static final String IDENTIFIER_LAYOUT = "layout";
 
     protected View mView;
     protected ViewGroup mPageContent; // /< child view
-    protected String mParseClassName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,13 +46,6 @@ public abstract class AutoInflateFrgmtBase extends FrgmtBase {
 
     private void autoInflate() {
         int id = getLayoutIdentifier();
-        if (mLog.isDebugEnabled()) {
-            StringBuilder log = new StringBuilder();
-            log.append("===================================================================\n");
-            log.append("inflate id : " + id + "\n");
-            log.append("===================================================================\n");
-            mLog.debug(log.toString());
-        }
 
         // base <- pageContent <- other View (class_name.xml)
         mPageContent = (ViewGroup) mBaseView.findViewById(getPageContentId());
@@ -70,30 +58,6 @@ public abstract class AutoInflateFrgmtBase extends FrgmtBase {
         }
     }
 
-    private String getClassSimpleName() {
-        if (mParseClassName != null && mParseClassName.length() > 0) {
-            return mParseClassName;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        String tmpName = getClass().getSimpleName().replace(getSuffixForFragment(), "");
-        sb.append(Character.toLowerCase(tmpName.charAt(0)));
-        for (int i = 1; i < tmpName.length(); ++i) {
-            char c = tmpName.charAt(i);
-
-            if (Character.isUpperCase(c)) {
-                sb.append('_');
-                sb.append(Character.toLowerCase(c));
-            } else {
-                sb.append(c);
-            }
-        }
-
-        mParseClassName = sb.toString();
-
-        return mParseClassName;
-    }
-
     protected int getStringTitleIdentifier() {
         return getResources().getIdentifier(getPrefixForMenu() + getClassSimpleName(),
                 IDENTIFIER_STRING, getActivity().getPackageName());
@@ -103,27 +67,14 @@ public abstract class AutoInflateFrgmtBase extends FrgmtBase {
         String layoutFileName = getPrefixForPage() + getClassSimpleName();
 
         if (mLog.isDebugEnabled()) {
-            StringBuilder log = new StringBuilder();
-            log.append("===================================================================\n");
-            log.append("layoutName" + layoutFileName + "\n");
-            log.append("===================================================================\n");
-            mLog.debug(log.toString());
+            mLog.debug("load : " + layoutFileName);
         }
 
-        return getResources().getIdentifier(layoutFileName, IDENTIFIER_LAYOUT,
-                getActivity().getPackageName());
+        return getResources().getIdentifier(layoutFileName, IDENTIFIER_LAYOUT, getActivity().getPackageName());
     }
 
     protected String getPrefixForMenu() {
         return PREFIX_MENU;
-    }
-
-    protected String getPrefixForPage() {
-        return PREFIX_PAGE;
-    }
-
-    protected String getSuffixForFragment() {
-        return SUFFIX_FRAGMENT;
     }
 
     // //////////////////////////////////////////////////////////////////////////////////

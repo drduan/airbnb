@@ -34,6 +34,8 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import net.sarangnamu.common.frgmt.FrgmtManager;
+
 import java.util.ArrayList;
 
 /**
@@ -41,10 +43,11 @@ import java.util.ArrayList;
  */
 public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListener {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(BkTab.class);
+
     private int mPadding;
     private int mTargetViewId;
-    private FragmentActivity mActivity;
-    
+    private FrgmtManager mFrgmtManager;
+
     public BkTab(Context context) {
         super(context);
         initLayout();
@@ -152,21 +155,21 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
             return ;
         }
 
-//        if (btn.getTag() instanceof View.OnClickListener) {
-//            ((OnClickListener) btn.getTag()).onClick(btn);
-//        } else {
-//            if (checkedId == 0) {
-        TabPageManager.getInstance(mActivity).add(mTargetViewId, (Class) btn.getTag());
-//            } else {
-//                TabPageManager.getInstance(mActivity).replace(mTargetViewId, (Class) btn.getTag(), null);
-//            }
-//        }
+        if (mFrgmtManager != null) {
+            mFrgmtManager.add(mTargetViewId, (Class) btn.getTag());
+        }
     }
 
-    public void setTargetView(@IdRes int resid, FragmentActivity activity) {
+    public void setFrgmtManager(@IdRes int resid, FrgmtManager manager) {
         mTargetViewId = resid;
-        mActivity = activity;
+        mFrgmtManager = manager;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
+    // DATA TYPE
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
 
     public static class BkImageData extends BkData {
         public BkImageData(@DrawableRes int drawid, Class<?> clazz) {
