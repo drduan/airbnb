@@ -17,16 +17,19 @@
 
 package net.sarangnamu.cloneairbnb.page.sub;
 
-import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
+import net.sarangnamu.cloneairbnb.R;
+import net.sarangnamu.cloneairbnb.page.EmptyFrgmtBase;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 21.. <p/>
  */
-public class WishFrgmt extends PageFrgmtBase {
+public class WishFrgmt extends EmptyFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(WishFrgmt.class);
 
     @Override
     protected void initLayout() {
         super.initLayout();
+
+        showEmptyLayout(getResources().getStringArray(R.array.wish_empty));
     }
 }

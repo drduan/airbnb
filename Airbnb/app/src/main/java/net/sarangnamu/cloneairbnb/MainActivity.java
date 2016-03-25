@@ -37,6 +37,8 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity {
     private static final Logger mLog = LoggerFactory.getLogger(MainActivity.class);

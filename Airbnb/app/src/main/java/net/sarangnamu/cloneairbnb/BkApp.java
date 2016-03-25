@@ -15,22 +15,27 @@
  * limitations under the License.
  */
 
-package net.sarangnamu.cloneairbnb.page.sub;
+package net.sarangnamu.cloneairbnb;
 
-import net.sarangnamu.cloneairbnb.R;
-import net.sarangnamu.cloneairbnb.page.EmptyFrgmtBase;
-import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
+import android.app.Application;
+import android.content.Context;
 
 /**
- * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 21.. <p/>
+ * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 25.. <p/>
  */
-public class MessageFrgmt extends EmptyFrgmtBase {
-    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(MessageFrgmt.class);
+public class BkApp extends Application {
+    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(BkApp.class);
+
+    private static Context mContext;
+
+    public static Context context() {
+        return mContext;
+    }
 
     @Override
-    protected void initLayout() {
-        super.initLayout();
+    public void onCreate() {
+        super.onCreate();
 
-        showEmptyLayout(getResources().getStringArray(R.array.message_empty));
+        mContext = getApplicationContext();
     }
 }

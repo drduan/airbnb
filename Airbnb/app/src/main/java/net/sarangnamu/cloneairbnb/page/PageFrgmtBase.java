@@ -17,7 +17,12 @@
 
 package net.sarangnamu.cloneairbnb.page;
 
+import android.view.View;
+
+import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.common.InflateFrgmtBase;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 23.. <p/>

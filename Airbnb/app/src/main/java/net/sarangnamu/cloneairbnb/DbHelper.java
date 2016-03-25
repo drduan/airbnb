@@ -15,22 +15,19 @@
  * limitations under the License.
  */
 
-package net.sarangnamu.cloneairbnb.page.sub;
+package net.sarangnamu.cloneairbnb;
 
-import net.sarangnamu.cloneairbnb.R;
-import net.sarangnamu.cloneairbnb.page.EmptyFrgmtBase;
-import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
- * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 21.. <p/>
+ * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 25.. <p/>
  */
-public class MessageFrgmt extends EmptyFrgmtBase {
-    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(MessageFrgmt.class);
+public class DbHelper {
+    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(DbHelper.class);
 
-    @Override
-    protected void initLayout() {
-        super.initLayout();
-
-        showEmptyLayout(getResources().getStringArray(R.array.message_empty));
+    public static Realm get() {
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(BkApp.context()).build();
+        return Realm.getInstance(realmConfig);
     }
 }

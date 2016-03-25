@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">cloneAirBnb</string>
-    <string name="wishList">Wish List</string>
+
+    <!-- wish -->
+    <string-array name="wish_empty">
+        <item>TITLE</item>
+        <item>MSG TITLE</item>
+        <item>HALKSDJF S KLASJDF ASLDKFJ SLKDJFLSKDF LSKDJFAL SKDFJ ASLDKFJSKADF SALDKJF ASLDKF </item>
+        <item>SEARCH</item>
+    </string-array>
+
+    <!-- message -->
+    <string-array name="message_empty">
+        <item>TITLE</item>
+        <item>MSG TITLE</item>
+        <item>HALKSDJF S KLASJDF ASLDKFJ SLKDJFLSKDF LSKDJFAL SKDFJ ASLDKFJSKADF SALDKJF ASLDKF </item>
+        <item>SEARCH</item>
+    </string-array>
+
 </resources>
