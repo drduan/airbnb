@@ -34,4 +34,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     //    compile 'com.github.aucd29:frgmt:1.0.1'
     compile project(':libfrgmt')
+    compile 'de.hdodenhof:circleimageview:2.0.0'
 }

@@ -17,4 +17,15 @@
         <item>SEARCH</item>
     </string-array>
 
+    <string name="navi_setting">메뉴1</string>
+    <string name="navi_hosting">메뉴2</string>
+    <string name="navi_registeration">메뉴3</string>
+    <string name="navi_invite">메뉴4</string>
+    <string name="navi_help">메뉴5</string>
+    <string name="navi_switch">메뉴6</string>
+
+    <string name="travel_tab1">tab1</string>
+    <string name="travel_tab2">tab2</string>
+
+
 </resources>

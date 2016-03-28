@@ -25,35 +25,62 @@
     tools:context=".MainActivity"
     >
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/content_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:foreground="?android:windowContentOverlay">
 
-        <FrameLayout
-            android:id="@+id/main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
         <net.sarangnamu.common.ui.tab.BkTab
             android:id="@+id/tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
             />
-    </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tab"
+            />
+
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navi_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        />
+        app:headerLayout="@layout/navi_header"
+        app:menu="@menu/navi_menu"
+        >
 
-    <!--app:headerLayout="@layout/drawer_header"-->
-    <!--app:menu="@menu/drawer"-->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#545454"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/navi_switch"
+                android:duplicateParentState="true"
+                android:textColor="@android:color/white"/>
+
+            <ImageView
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:src="@drawable/ic_favorite_outline_24dp"
+                />
+        </FrameLayout>
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
 

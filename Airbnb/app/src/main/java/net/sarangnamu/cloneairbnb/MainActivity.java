@@ -21,9 +21,13 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
+import net.sarangnamu.cloneairbnb.menu.MenuManager;
 import net.sarangnamu.cloneairbnb.page.sub.MainFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.MessageFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.TravelFrgmt;
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         initTab();
         initLayout();
+        initNavigationMenu();
     }
 
     private void initTab() {
@@ -72,14 +77,24 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
 
-        mTab.setFrgmtManager(R.id.main, TabPageManager.getInstance(MainActivity.this));
         mTab.setButtonPadding(20);
         mTab.setData(data);
+        mTab.setFrgmtManager(R.id.main, TabPageManager.getInstance(MainActivity.this));
         mTab.setChecked(0);
     }
 
     private void initLayout() {
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    private void initNavigationMenu() {
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                MenuManager.getInstance().changeMenu(MainActivity.this, item);
+                return false;
+            }
+        });
     }
 
     @Override

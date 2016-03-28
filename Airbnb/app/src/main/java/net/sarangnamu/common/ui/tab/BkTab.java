@@ -259,6 +259,12 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
 
         @Override
         protected void onDraw(Canvas canvas) {
+            if (getText() != null && getText().length() != 0) {
+                super.onDraw(canvas);
+
+                return ;
+            }
+
             // @see http://blog.mohitkanwal.com/blog/2013/10/02/making-a-custom-centre-aligned-radio-button-with-a-state-list-drawable/
 
             if (mDrawable != null) {

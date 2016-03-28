@@ -16,8 +16,27 @@
   ~ limitations under the License.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/navi_setting"
+            android:title="@string/navi_setting"/>
 
-</RelativeLayout>
+        <item
+            android:id="@+id/navi_hosting"
+            android:title="@string/navi_hosting"/>
+
+        <item
+            android:id="@+id/navi_registration"
+            android:title="@string/navi_registeration"/>
+
+        <item
+            android:id="@+id/navi_invite"
+            android:title="@string/navi_invite"/>
+
+        <item
+            android:id="@+id/navi_help"
+            android:title="@string/navi_help"/>
+    </group>
+</menu>

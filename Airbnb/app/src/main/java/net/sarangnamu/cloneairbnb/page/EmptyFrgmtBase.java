@@ -23,13 +23,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import net.sarangnamu.cloneairbnb.R;
+import net.sarangnamu.cloneairbnb.TabPageManager;
+import net.sarangnamu.cloneairbnb.page.sub.MainFrgmt;
 
 import butterknife.ButterKnife;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 23.. <p/>
  */
-public class EmptyFrgmtBase extends PageFrgmtBase {
+public class EmptyFrgmtBase extends PageFrgmtBase implements View.OnClickListener {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(EmptyFrgmtBase.class);
 
     protected TextView mTitle;
@@ -55,7 +57,13 @@ public class EmptyFrgmtBase extends PageFrgmtBase {
         mMsgTitle.setText(msg[i++]);
         mMsgContent.setText(msg[i++]);
         mMsgButton.setText(msg[i++]);
+        mMsgButton.setOnClickListener(this);
 
         mBaseView.addView(empty);
+    }
+
+    @Override
+    public void onClick(View v) {
+        TabPageManager.getInstance(getActivity()).add(R.id.main, MainFrgmt.class);
     }
 }

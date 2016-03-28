@@ -17,7 +17,20 @@
 
 package net.sarangnamu.cloneairbnb.page.sub;
 
+import android.view.Gravity;
+import android.view.View;
+import android.widget.FrameLayout;
+
+import net.sarangnamu.cloneairbnb.R;
+import net.sarangnamu.cloneairbnb.TabPageManager;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
+import net.sarangnamu.cloneairbnb.page.sub.travel.TravelAfterFrgmt;
+import net.sarangnamu.cloneairbnb.page.sub.travel.TravelScheduledFrgmt;
+import net.sarangnamu.common.ui.tab.BkTab;
+
+import java.util.ArrayList;
+
+import butterknife.Bind;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 21.. <p/>
@@ -25,8 +38,21 @@ import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
 public class TravelFrgmt extends PageFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(TravelFrgmt.class);
 
+    @Bind(R.id.tab) BkTab mTab;
+    @Bind(R.id.travel) FrameLayout mLayout;
+
     @Override
     protected void initLayout() {
         super.initLayout();
+
+        ArrayList<BkTab.BkData> data = new ArrayList<>();
+
+        data.add(new BkTab.BkTextData(R.string.travel_tab1, TravelScheduledFrgmt.class));
+        data.add(new BkTab.BkTextData(R.string.travel_tab2, TravelAfterFrgmt.class));
+
+        mTab.setButtonPadding(10);
+        mTab.setData(data);
+        mTab.setFrgmtManager(R.id.main, TabPageManager.getInstance(getActivity()));
+        mTab.setChecked(0);
     }
 }
