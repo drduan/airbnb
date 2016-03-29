@@ -17,6 +17,7 @@
 
 package net.sarangnamu.cloneairbnb.page.sub;
 
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -44,6 +45,11 @@ public class TravelFrgmt extends PageFrgmtBase {
     @Override
     protected void initLayout() {
         super.initLayout();
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
 
         ArrayList<BkTab.BkData> data = new ArrayList<>();
 

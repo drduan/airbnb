@@ -43,6 +43,14 @@ public class MenuManager {
     }
 
     public void changeMenu(FragmentActivity activity, MenuItem item) {
+        if (mLog.isDebugEnabled()) {
+            StringBuilder log = new StringBuilder();
+            log.append("===================================================================\n");
+            log.append("CHANGE MENU\n");
+            log.append("===================================================================\n");
+            mLog.debug(log.toString());
+        }
+
         switch (item.getItemId()) {
             case R.id.navi_setting:
 

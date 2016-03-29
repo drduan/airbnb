@@ -61,7 +61,6 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
     protected void initLayout() {
         setOrientation(HORIZONTAL);
         setGravity(Gravity.CENTER);
-        setOnCheckedChangeListener(this);
     }
 
     public int dpToPixel(float dp) {
@@ -73,6 +72,8 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
     }
 
     public void setData(ArrayList<BkData> dataList) {
+        setOnCheckedChangeListener(this);
+
         int i = 0;
         for (BkData data : dataList) {
             View view;
