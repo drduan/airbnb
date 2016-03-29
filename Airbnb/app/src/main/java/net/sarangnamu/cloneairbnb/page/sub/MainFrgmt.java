@@ -17,6 +17,7 @@
 
 package net.sarangnamu.cloneairbnb.page.sub;
 
+import android.content.Intent;
 import android.widget.LinearLayout;
 import android.widget.ViewSwitcher;
 

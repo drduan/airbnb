@@ -39,7 +39,7 @@ public class TravelFrgmt extends PageFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(TravelFrgmt.class);
 
     @Bind(R.id.tab) BkTab mTab;
-    @Bind(R.id.travel) FrameLayout mLayout;
+    @Bind(R.id.travel_main) FrameLayout mLayout;
 
     @Override
     protected void initLayout() {
@@ -52,7 +52,7 @@ public class TravelFrgmt extends PageFrgmtBase {
 
         mTab.setButtonPadding(10);
         mTab.setData(data);
-        mTab.setFrgmtManager(R.id.main, TabPageManager.getInstance(getActivity()));
+        mTab.setFrgmtManager(R.id.travel_main, TabPageManager.getInstance(getActivity()));
         mTab.setChecked(0);
     }
 }
