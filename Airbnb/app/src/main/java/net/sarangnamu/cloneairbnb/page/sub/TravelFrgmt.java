@@ -18,12 +18,9 @@
 package net.sarangnamu.cloneairbnb.page.sub;
 
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import net.sarangnamu.cloneairbnb.R;
-import net.sarangnamu.cloneairbnb.TabPageManager;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
 import net.sarangnamu.cloneairbnb.page.sub.travel.TravelAfterFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.travel.TravelScheduledFrgmt;
@@ -45,20 +42,16 @@ public class TravelFrgmt extends PageFrgmtBase {
     @Override
     protected void initLayout() {
         super.initLayout();
-    }
 
-    @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
+        // FIXME 2번째 instance 시 화면에 내용이 입력 안되는 문제 발생
         ArrayList<BkTab.BkData> data = new ArrayList<>();
 
         data.add(new BkTab.BkTextData(R.string.travel_tab1, TravelScheduledFrgmt.class));
         data.add(new BkTab.BkTextData(R.string.travel_tab2, TravelAfterFrgmt.class));
 
         mTab.setButtonPadding(10);
+        mTab.setFrgmtManager(R.id.travel_main, TravelPageManager.getInstance(this));
         mTab.setData(data);
-        mTab.setFrgmtManager(R.id.travel_main, TabPageManager.getInstance(getActivity()));
         mTab.setChecked(0);
     }
 }

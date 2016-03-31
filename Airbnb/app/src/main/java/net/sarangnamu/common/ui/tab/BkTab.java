@@ -19,6 +19,8 @@ package net.sarangnamu.common.ui.tab;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
@@ -26,6 +28,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -33,6 +36,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TabHost;
+import android.widget.TextView;
 
 import net.sarangnamu.common.frgmt.FrgmtManager;
 
@@ -83,14 +88,9 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
 
                 if (data instanceof BkImageData) {
                     imgbtn.setImageResource(data.getResId());
-//                    imgbtn.setText(null);
-                } else {
-//                    imgbtn.setText(data.getResId());
                 }
 
                 imgbtn.setOnClickListener(data.click);
-//                imgbtn.setGravity(Gravity.CENTER_VERTICAL);
-
                 view = imgbtn;
             } else {
                 BkRadioButton bkbtn = new BkRadioButton(getContext());
@@ -99,7 +99,7 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
                     bkbtn.setButtonDrawable(data.getResId());
                     bkbtn.setText(null);
                 } else {
-                    bkbtn.setText(data.getResId());
+                    bkbtn.setTextResId(data.getResId());
                 }
 
                 if (data.clazz == null) {
@@ -141,11 +141,35 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
             return ;
         }
 
-        btn.setChecked(true);
+        if (btn.isChecked()) {
+            if (mLog.isDebugEnabled()) {
+                StringBuilder log = new StringBuilder();
+                log.append("===================================================================\n");
+                log.append("target id : " + mTargetViewId + "\n");
+                log.append("===================================================================\n");
+                mLog.debug(log.toString());
+            }
+
+            if (mFrgmtManager != null) {
+                mFrgmtManager.add(mTargetViewId, (Class) btn.getTag());
+            }
+        } else {
+            btn.setChecked(true);
+        }
     }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (mLog.isDebugEnabled()) {
+            StringBuilder log = new StringBuilder();
+            log.append("===================================================================\n");
+            log.append("checked changed \n");
+            log.append("===================================================================\n");
+            mLog.debug(log.toString());
+            mLog.debug("view id " + mTargetViewId);
+            mLog.debug("frgmet manager " + mFrgmtManager);
+        }
+
         if (mTargetViewId == 0) {
             return ;
         }
@@ -164,6 +188,14 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
     public void setFrgmtManager(@IdRes int resid, FrgmtManager manager) {
         mTargetViewId = resid;
         mFrgmtManager = manager;
+
+        if (mLog.isDebugEnabled()) {
+            StringBuilder log = new StringBuilder();
+            log.append("===================================================================\n");
+            log.append("set fragment target id : " + mTargetViewId + "\n");
+            log.append("===================================================================\n");
+            mLog.debug(log.toString());
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -222,8 +254,9 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
     //
     ////////////////////////////////////////////////////////////////////////////////////
 
-    class BkRadioButton extends RadioButton {
+    class BkRadioButton extends Check {
         private Drawable mDrawable;
+        private Paint mTextPaint;
 
         public BkRadioButton(Context context) {
             super(context);
@@ -244,6 +277,36 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
         
         }
 
+        public void setTextResId(@StringRes int resid) {
+            setButtonDrawable(new Drawable() {
+                @Override
+                public void draw(Canvas canvas) {
+                }
+
+                @Override
+                public void setAlpha(int alpha) {
+                }
+
+                @Override
+                public void setColorFilter(ColorFilter colorFilter) {
+                }
+
+                @Override
+                public int getOpacity() {
+                    return 0;
+                }
+            });
+
+            setText(resid);
+
+            mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mTextPaint.setTextSize(getTextSize());
+            mTextPaint.setTextAlign(Paint.Align.CENTER);
+            mTextPaint.setColor(0xffff0000);
+
+//            mTextPaint.setCompatibilityScaling(compat.applicationScale);
+        }
+
         @Nullable
         @Override
         public void setButtonDrawable(int resid) {
@@ -261,7 +324,9 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
         @Override
         protected void onDraw(Canvas canvas) {
             if (getText() != null && getText().length() != 0) {
-                super.onDraw(canvas);
+//                super.onDraw(canvas);
+
+                canvas.drawText(getText().toString(), 0, 0, mTextPaint);
 
                 return ;
             }

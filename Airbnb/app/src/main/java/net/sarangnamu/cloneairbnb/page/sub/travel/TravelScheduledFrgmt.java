@@ -17,11 +17,16 @@
 
 package net.sarangnamu.cloneairbnb.page.sub.travel;
 
-import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
+import net.sarangnamu.common.InflateFrgmtBase;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 28.. <p/>
  */
-public class TravelScheduledFrgmt extends PageFrgmtBase {
+public class TravelScheduledFrgmt extends InflateFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(TravelScheduledFrgmt.class);
+
+    @Override
+    protected void initLayout() {
+
+    }
 }
