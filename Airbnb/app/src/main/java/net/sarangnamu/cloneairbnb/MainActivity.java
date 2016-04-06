@@ -21,11 +21,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
 import net.sarangnamu.cloneairbnb.menu.MenuManager;
 import net.sarangnamu.cloneairbnb.page.sub.MainFrgmt;
@@ -41,8 +37,6 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity {
     private static final Logger mLog = LoggerFactory.getLogger(MainActivity.class);
@@ -66,15 +60,12 @@ public class MainActivity extends AppCompatActivity {
     private void initTab() {
         ArrayList<BkTab.BkData> data = new ArrayList<>();
 
-        data.add(new BkTab.BkImageData(R.drawable.ic_tab_selector, MainFrgmt.class));
-        data.add(new BkTab.BkImageData(R.drawable.ic_tab_selector, WishFrgmt.class));
-        data.add(new BkTab.BkImageData(R.drawable.ic_tab_selector, MessageFrgmt.class));
-        data.add(new BkTab.BkImageData(R.drawable.ic_tab_selector, TravelFrgmt.class));
-        data.add(new BkTab.BkImageData(R.drawable.ic_tab_selector, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDrawerLayout.openDrawer(Gravity.RIGHT);
-            }
+        data.add(new BkTab.BkImageData(R.drawable.selector_tab, MainFrgmt.class));
+        data.add(new BkTab.BkImageData(R.drawable.selector_tab, WishFrgmt.class));
+        data.add(new BkTab.BkImageData(R.drawable.selector_tab, MessageFrgmt.class));
+        data.add(new BkTab.BkImageData(R.drawable.selector_tab, TravelFrgmt.class));
+        data.add(new BkTab.BkImageData(R.drawable.selector_tab, v -> {
+            mDrawerLayout.openDrawer(Gravity.RIGHT);
         }));
 
         mTab.setButtonPadding(20);
@@ -88,12 +79,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initNavigationMenu() {
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                MenuManager.getInstance().changeMenu(MainActivity.this, item);
-                return false;
-            }
+        mNavigationView.setNavigationItemSelectedListener(item -> {
+            MenuManager.getInstance().changeMenu(MainActivity.this, item);
+            return false;
         });
     }
 

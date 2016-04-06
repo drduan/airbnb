@@ -16,12 +16,31 @@
   ~ limitations under the License.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navi_setting"
+        app:actionLayout="@layout/test"
+        android:title="가나다라 마바사"
+        />
+
     <group
         android:checkableBehavior="single">
         <item
-            android:id="@+id/navi_setting"
-            android:title="@string/navi_setting"/>
+            android:id="@+id/navi_hosting2"
+            android:title="@string/navi_hosting"
+            android:enabled="false"/>
+
+        <!--<item-->
+            <!--android:id="@+id/navi_setting"-->
+            <!--android:title="test"-->
+            <!--/>-->
+
+        <!--<item-->
+        <!--android:id="@+id/navi_setting"-->
+        <!--android:title="@string/navi_setting"/>-->
 
         <item
             android:id="@+id/navi_hosting"

@@ -43,11 +43,15 @@ public class TravelFrgmt extends PageFrgmtBase {
     protected void initLayout() {
         super.initLayout();
 
-        // FIXME 2번째 instance 시 화면에 내용이 입력 안되는 문제 발생
         ArrayList<BkTab.BkData> data = new ArrayList<>();
 
         data.add(new BkTab.BkTextData(R.string.travel_tab1, TravelScheduledFrgmt.class));
         data.add(new BkTab.BkTextData(R.string.travel_tab2, TravelAfterFrgmt.class));
+
+        for (BkTab.BkData text : data) {
+            BkTab.BkTextData textdata = (BkTab.BkTextData) text;
+            textdata.setColorStateId(R.drawable.selector_travel_tab);
+        }
 
         mTab.setButtonPadding(10);
         mTab.setFrgmtManager(R.id.travel_main, TravelPageManager.getInstance(this));

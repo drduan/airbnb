@@ -18,11 +18,14 @@
 package net.sarangnamu.common.ui.tab;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -38,6 +41,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import net.sarangnamu.common.frgmt.FrgmtManager;
 
@@ -99,7 +103,8 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
                     bkbtn.setButtonDrawable(data.getResId());
                     bkbtn.setText(null);
                 } else {
-                    bkbtn.setTextResId(data.getResId());
+                    BkTextData txtData = (BkTextData) data;
+                    bkbtn.setTextResId(data.getResId(), txtData.getColorStateId());
                 }
 
                 if (data.clazz == null) {
@@ -136,40 +141,16 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
             return ;
         }
 
-        RadioButton btn = (RadioButton) getChildAt(check);
+        BkRadioButton btn = (BkRadioButton) getChildAt(check);
         if (btn == null) {
             return ;
         }
 
-        if (btn.isChecked()) {
-            if (mLog.isDebugEnabled()) {
-                StringBuilder log = new StringBuilder();
-                log.append("===================================================================\n");
-                log.append("target id : " + mTargetViewId + "\n");
-                log.append("===================================================================\n");
-                mLog.debug(log.toString());
-            }
-
-            if (mFrgmtManager != null) {
-                mFrgmtManager.add(mTargetViewId, (Class) btn.getTag());
-            }
-        } else {
-            btn.setChecked(true);
-        }
+        btn.setChecked(true);
     }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        if (mLog.isDebugEnabled()) {
-            StringBuilder log = new StringBuilder();
-            log.append("===================================================================\n");
-            log.append("checked changed \n");
-            log.append("===================================================================\n");
-            mLog.debug(log.toString());
-            mLog.debug("view id " + mTargetViewId);
-            mLog.debug("frgmet manager " + mFrgmtManager);
-        }
-
         if (mTargetViewId == 0) {
             return ;
         }
@@ -188,14 +169,6 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
     public void setFrgmtManager(@IdRes int resid, FrgmtManager manager) {
         mTargetViewId = resid;
         mFrgmtManager = manager;
-
-        if (mLog.isDebugEnabled()) {
-            StringBuilder log = new StringBuilder();
-            log.append("===================================================================\n");
-            log.append("set fragment target id : " + mTargetViewId + "\n");
-            log.append("===================================================================\n");
-            mLog.debug(log.toString());
-        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -218,6 +191,8 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
     }
 
     public static class BkTextData extends BkData {
+        int colorId;
+
         public BkTextData(@StringRes int strid, Class<?> clazz) {
             this.resid = strid;
             this.clazz = clazz;
@@ -227,6 +202,14 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
             this.resid = strid;
             this.clazz = null;
             this.click = click;
+        }
+
+        public void setColorStateId(@DrawableRes int resid) {
+            colorId = resid;
+        }
+
+        public @DrawableRes int getColorStateId() {
+            return colorId;
         }
     }
 
@@ -254,9 +237,9 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
     //
     ////////////////////////////////////////////////////////////////////////////////////
 
-    class BkRadioButton extends Check {
+    class BkRadioButton extends RadioButton {
         private Drawable mDrawable;
-        private Paint mTextPaint;
+        private TextPaint mTextPaint;
 
         public BkRadioButton(Context context) {
             super(context);
@@ -277,34 +260,30 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
         
         }
 
-        public void setTextResId(@StringRes int resid) {
+        public void setTextResId(@StringRes int resid, int colorid) {
             setButtonDrawable(new Drawable() {
                 @Override
-                public void draw(Canvas canvas) {
-                }
-
+                public void draw(Canvas canvas) { }
                 @Override
-                public void setAlpha(int alpha) {
-                }
-
+                public void setAlpha(int alpha) { }
                 @Override
-                public void setColorFilter(ColorFilter colorFilter) {
-                }
-
+                public void setColorFilter(ColorFilter colorFilter) { }
                 @Override
-                public int getOpacity() {
-                    return 0;
-                }
+                public int getOpacity() { return 0; }
             });
 
             setText(resid);
 
-            mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
             mTextPaint.setTextSize(getTextSize());
+            mTextPaint.density = getResources().getDisplayMetrics().density;
             mTextPaint.setTextAlign(Paint.Align.CENTER);
-            mTextPaint.setColor(0xffff0000);
 
-//            mTextPaint.setCompatibilityScaling(compat.applicationScale);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                setTextColor(getResources().getColorStateList(colorid, null));
+            } else {
+                setTextColor(getResources().getColorStateList(colorid));
+            }
         }
 
         @Nullable
@@ -325,8 +304,15 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
         protected void onDraw(Canvas canvas) {
             if (getText() != null && getText().length() != 0) {
 //                super.onDraw(canvas);
+                int w = this.getWidth() / 2;
+                int h = this.getHeight() / 2 + (int) (mTextPaint.getTextSize() / 2);
 
-                canvas.drawText(getText().toString(), 0, 0, mTextPaint);
+//                ColorStateList list = getTextColors();
+//                int color = list.getColorForState(getDrawableState(), 0);
+
+                mTextPaint.drawableState = getDrawableState();
+                mTextPaint.setColor(getCurrentTextColor());
+                canvas.drawText(getText().toString(), w, h, mTextPaint);
 
                 return ;
             }

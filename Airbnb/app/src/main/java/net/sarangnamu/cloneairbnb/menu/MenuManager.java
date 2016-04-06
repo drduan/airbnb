@@ -64,6 +64,5 @@ public class MenuManager {
             case R.id.navi_help:
                 break;
         }
-//        TabPageManager.getInstance(activity).replace();
     }
 }
