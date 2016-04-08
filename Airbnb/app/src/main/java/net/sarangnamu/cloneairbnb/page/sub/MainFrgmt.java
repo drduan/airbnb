@@ -17,12 +17,13 @@
 
 package net.sarangnamu.cloneairbnb.page.sub;
 
-import android.content.Intent;
 import android.widget.LinearLayout;
-import android.widget.ViewSwitcher;
 
 import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
+import net.sarangnamu.common.ui.image.BkFadeImageView;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 
@@ -32,14 +33,25 @@ import butterknife.Bind;
 public class MainFrgmt extends PageFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(MainFrgmt.class);
 
-    @Bind(R.id.view_switcher) ViewSwitcher mViewSwitcher;
+    @Bind(R.id.fade_image) BkFadeImageView mFadeImageView;
     @Bind(R.id.contentLayout) LinearLayout mContentLayout;
 
     @Override
     protected void initLayout() {
         super.initLayout();
 
-        // TODO add image
-//        mViewSwitcher.addView();
+        setImageList();
+    }
+
+    private void setImageList() {
+        ArrayList<Integer> imgList = new ArrayList<>();
+        imgList.add(R.drawable.test1);
+        imgList.add(R.drawable.test2);
+        imgList.add(R.drawable.test3);
+
+        mFadeImageView.setScaleAnimation(1.05f);
+        mFadeImageView.setImageList(imgList, 5000);
     }
 }
+
+

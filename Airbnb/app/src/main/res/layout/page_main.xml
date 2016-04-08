@@ -24,41 +24,27 @@
     <RelativeLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#390f0f">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Main"/>
-
-        <ViewSwitcher
-            android:id="@+id/view_switcher"
+        <net.sarangnamu.common.ui.image.BkFadeImageView
+            android:id="@+id/fade_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inAnimation="@anim/fade_in"
-            android:outAnimation="@anim/fade_out"
-            >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/main_top1"
-                />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/main_top2"
-                />
-
-            </ViewSwitcher>
+            android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:layout_below="@+id/fade_image"
             android:id="@+id/contentLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#7fff0000"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HELLO IT ME"
+                android:id="@+id/textView"/>
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>
