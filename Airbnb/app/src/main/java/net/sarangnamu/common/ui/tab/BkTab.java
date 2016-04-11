@@ -121,7 +121,7 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
             view.setId(i++);
             view.setPadding(0, mPadding, 0, mPadding);
             view.setLayoutParams(getRadioButtonLayoutParams());
-            view.setBackgroundColor(0xffdedede); // custom 필요
+            view.setBackgroundColor(0xffdedede);
             view.setDuplicateParentStateEnabled(true);
 
             addView(view);
@@ -306,9 +306,6 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
 //                super.onDraw(canvas);
                 int w = this.getWidth() / 2;
                 int h = this.getHeight() / 2 + (int) (mTextPaint.getTextSize() / 2);
-
-//                ColorStateList list = getTextColors();
-//                int color = list.getColorForState(getDrawableState(), 0);
 
                 mTextPaint.drawableState = getDrawableState();
                 mTextPaint.setColor(getCurrentTextColor());

@@ -16,36 +16,48 @@
   ~ limitations under the License.
   -->
 
-<ScrollView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/main"
+    <net.sarangnamu.common.ui.image.BkFadeImageView
+        android:id="@+id/fade_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#390f0f">
+        android:layout_height="wrap_content"/>
 
-        <net.sarangnamu.common.ui.image.BkFadeImageView
-            android:id="@+id/fade_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <net.sarangnamu.common.ui.scroll.BkScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_below="@+id/fade_image"
-            android:id="@+id/contentLayout"
+        <RelativeLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#7fff0000"
-            android:orientation="vertical">
+            >
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- transparent dumy view -->
+            <View
+                android:id="@+id/dumy"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="HELLO IT ME"
-                android:id="@+id/textView"/>
-        </LinearLayout>
-    </RelativeLayout>
-</ScrollView>
+                />
 
+            <LinearLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
+                android:layout_below="@+id/dumy"
+                android:orientation="vertical">
+
+                <!-- maybe add a recycler view -->
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HELLO IT ME"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </net.sarangnamu.common.ui.scroll.BkScrollView>
+</FrameLayout>

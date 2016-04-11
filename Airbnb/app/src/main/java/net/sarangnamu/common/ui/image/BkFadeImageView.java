@@ -46,7 +46,7 @@ public class BkFadeImageView extends FrameLayout {
 
     private static final int EVENT_FADE = 1;
 
-    private int mIndex;
+    private int mIndex, mImageViewHeight = 0, mImageViewGravity = Gravity.CENTER_VERTICAL;
     private ArrayList<Integer> mImageList;
     private Handler mHandler;
 
@@ -112,6 +112,14 @@ public class BkFadeImageView extends FrameLayout {
         mScale = scale;
     }
 
+    public void setImageViewHeight(int height) {
+        mImageViewHeight = height;
+    }
+
+    public void setImageViewGravity(int gravity) {
+        mImageViewGravity = gravity;
+    }
+
     private void run(int delay) {
         mIndex = 0;
 
@@ -123,7 +131,7 @@ public class BkFadeImageView extends FrameLayout {
         ImageView img = getImageView();
         scaleAnimation(img, delay);
 
-        addView(img, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        addView(img, 0);
 
         if (mHandler == null) {
             mHandler = new Handler(Looper.getMainLooper(), new ProcessHandler());
@@ -147,8 +155,10 @@ public class BkFadeImageView extends FrameLayout {
             mIndex = 0;
         }
 
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        lp.gravity      = Gravity.TOP;
+        int layoutHeight = mImageViewHeight != 0 ? mImageViewHeight : LayoutParams.WRAP_CONTENT;
+
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, layoutHeight);
+        lp.gravity = mImageViewGravity;
         img.setLayoutParams(lp);
 
         if (mScale != 0f) {
