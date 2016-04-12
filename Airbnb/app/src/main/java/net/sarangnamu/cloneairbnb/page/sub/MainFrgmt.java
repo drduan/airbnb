@@ -17,16 +17,21 @@
 
 package net.sarangnamu.cloneairbnb.page.sub;
 
+import android.animation.Animator;
+import android.content.Context;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
+import net.sarangnamu.common.ani.AnimatorEndListener;
 import net.sarangnamu.common.ui.image.BkFadeImageView;
 import net.sarangnamu.common.ui.scroll.BkScrollView;
 
@@ -41,11 +46,13 @@ public class MainFrgmt extends PageFrgmtBase {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(MainFrgmt.class);
 
     @Bind(R.id.fade_image) BkFadeImageView mFadeImageView;
-    @Bind(R.id.contentLayout) LinearLayout mContentLayout;
-    @Bind(R.id.dumy) View mDumyView;
+    @Bind(R.id.content_layout) LinearLayout mContentLayout;
     @Bind(R.id.scroll) BkScrollView mScroll;
+    @Bind(R.id.fab) FloatingActionButton mFab;
+    @Bind(R.id.fab_dumy) View mFabDumy;
+    @Bind(R.id.search) EditText mSearch;
 
-    int mOldValue = 0, mBitmapHeight = 0;
+    private int mOldValue = 0, mBitmapHeight = 0;
 
     @Override
     protected void initLayout() {
@@ -53,8 +60,9 @@ public class MainFrgmt extends PageFrgmtBase {
 
         setFadeImageHeight();
         setImageList();
-        setDumyView();
+        setContentLayoutPadding();
         setScrollView();
+        setFab();
     }
 
     private void setFadeImageHeight() {
@@ -79,32 +87,68 @@ public class MainFrgmt extends PageFrgmtBase {
         mFadeImageView.setImageList(imgList, 5000);
     }
 
-    private void setDumyView() {
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, mBitmapHeight);
-        mDumyView.setLayoutParams(lp);
+    private void setContentLayoutPadding() {
+        mContentLayout.setPadding(0, mBitmapHeight, 0, 0);
     }
 
     private void setScrollView() {
         mScroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mScroll.setOnScrollYListener((value) -> {
             if (mOldValue == value) {
-                return ;
+                return;
             }
 
             mOldValue = value;
 
-            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mFadeImageView.getLayoutParams();
-            if (lp == null) {
-                mLog.error("ERROR the fade image view layout param is null");
-                return ;
-            }
-
-            // resize fade image view
-            int newHeight = mBitmapHeight - value;
-            lp.height = newHeight <= 0 ? 0 : newHeight;
-
-            mFadeImageView.setLayoutParams(lp);
+            moveFadeImageView(value);
+            moveFab(value);
         });
+    }
+
+    private void moveFadeImageView(int value) {
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mFadeImageView.getLayoutParams();
+        if (lp == null) {
+            mLog.error("ERROR the fade image view layout param is null");
+            return;
+        }
+
+        int newHeight = mBitmapHeight - value;
+        lp.height = newHeight <= 0 ? 0 : newHeight;
+
+        mFadeImageView.setLayoutParams(lp);
+    }
+
+    private int getBaseFabMargin() {
+        return mBitmapHeight - (getResources().getDimensionPixelSize(R.dimen.main_fab_size) / 2);
+    }
+
+    private void setFab() {
+        mFab.setTranslationY(getBaseFabMargin());
+    }
+
+    private void moveFab(int value) {
+        mFab.setTranslationY(getBaseFabMargin() - value);
+
+        if (mFab.getTranslationY() <= 0 && mSearch.getVisibility() == View.GONE) {
+            if (mFabDumy.getVisibility() == View.GONE) {
+                WindowManager manager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+                Point pt = new Point();
+                manager.getDefaultDisplay().getSize(pt);
+
+                mFabDumy.setVisibility(View.VISIBLE);
+                mFabDumy.animate().setDuration(100).scaleX(pt.x).setListener(new AnimatorEndListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mFabDumy.setVisibility(View.GONE);
+                        mSearch.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        } else {
+            if (mFabDumy.getVisibility() == View.VISIBLE) {
+                mFabDumy.setVisibility(View.GONE);
+            }
+        }
     }
 }
 
