@@ -27,7 +27,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
@@ -48,21 +50,36 @@ public class MainFrgmt extends PageFrgmtBase {
     @Bind(R.id.fade_image) BkFadeImageView mFadeImageView;
     @Bind(R.id.content_layout) LinearLayout mContentLayout;
     @Bind(R.id.scroll) BkScrollView mScroll;
+
     @Bind(R.id.fab) FloatingActionButton mFab;
-    @Bind(R.id.fab_dumy) View mFabDumy;
+    @Bind(R.id.fab_layout) RelativeLayout mFabLayout;
+    @Bind(R.id.fab_dumy) ImageView mFabDumy;
     @Bind(R.id.search) EditText mSearch;
+    @Bind(R.id.ic_search) ImageView mIconSearch;
+    @Bind(R.id.search_underline) View mSearchUnderline;
 
     private int mOldValue = 0, mBitmapHeight = 0;
+    private int mScreenWidth;
+    private boolean mAnimate = false;
 
     @Override
     protected void initLayout() {
         super.initLayout();
 
+        getScreenWidth();
         setFadeImageHeight();
         setImageList();
         setContentLayoutPadding();
         setScrollView();
         setFab();
+    }
+
+    private void getScreenWidth() {
+        WindowManager manager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+        Point pt = new Point();
+        manager.getDefaultDisplay().getSize(pt);
+
+        mScreenWidth = pt.x;
     }
 
     private void setFadeImageHeight() {
@@ -124,30 +141,63 @@ public class MainFrgmt extends PageFrgmtBase {
 
     private void setFab() {
         mFab.setTranslationY(getBaseFabMargin());
+        mFabLayout.setTranslationY(getBaseFabMargin());
     }
 
     private void moveFab(int value) {
-        mFab.setTranslationY(getBaseFabMargin() - value);
+        int fabY = getBaseFabMargin() - value;
 
-        if (mFab.getTranslationY() <= 0 && mSearch.getVisibility() == View.GONE) {
+        mFab.setTranslationY(fabY);
+        mFabLayout.setTranslationY(fabY <= 0 ? 0 : fabY);
+
+        if (mFab.getTranslationY() <= 0 && mSearch.getVisibility() == View.GONE && mAnimate == false) {
             if (mFabDumy.getVisibility() == View.GONE) {
-                WindowManager manager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-                Point pt = new Point();
-                manager.getDefaultDisplay().getSize(pt);
+                mAnimate = true;
+
+                mFab.setVisibility(View.GONE);
+                mFabLayout.setBackgroundResource(android.R.color.white);
+                mFabLayout.setVisibility(View.VISIBLE);
 
                 mFabDumy.setVisibility(View.VISIBLE);
-                mFabDumy.animate().setDuration(100).scaleX(pt.x).setListener(new AnimatorEndListener() {
+                mIconSearch.setVisibility(View.VISIBLE);
+                mSearch.setVisibility(View.VISIBLE);
+                mSearchUnderline.setVisibility(View.VISIBLE);
+
+                mFabDumy.animate().alpha(0).scaleX(20).scaleY(20).setDuration(400).setListener(new AnimatorEndListener() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        mFabDumy.setVisibility(View.GONE);
-                        mSearch.setVisibility(View.VISIBLE);
+                        mAnimate = false;
                     }
                 });
             }
         } else {
-            if (mFabDumy.getVisibility() == View.VISIBLE) {
-                mFabDumy.setVisibility(View.GONE);
+            if (mFab.getTranslationY() > 0 && mSearch.getVisibility() == View.VISIBLE && mAnimate == false) {
+                mAnimate = true;
+
+                mFabLayout.setBackgroundResource(android.R.color.transparent);
+                mSearchUnderline.setVisibility(View.GONE);
+
+                mFabDumy.animate().alpha(1).scaleX(1).scaleY(1).setDuration(300).setListener(new AnimatorEndListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mAnimate = false;
+
+                        mFab.setVisibility(View.VISIBLE);
+                        mFabDumy.setVisibility(View.GONE);
+                        mIconSearch.setVisibility(View.GONE);
+                        mSearch.setVisibility(View.GONE);
+                        mFabLayout.setVisibility(View.GONE);
+                    }
+                });
             }
+        }
+    }
+
+    private void setChildVisibility(int visible) {
+        int size = mFabLayout.getChildCount();
+        for (int i=0; i<size; ++i) {
+            View view = mFabLayout.getChildAt(i);
+            view.setVisibility(visible);
         }
     }
 }

@@ -18,9 +18,9 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <net.sarangnamu.common.ui.image.BkFadeImageView
         android:id="@+id/fade_image"
@@ -36,14 +36,15 @@
             android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/main_top_pad"
             >
+
             <LinearLayout
                 android:id="@+id/content_layout"
                 android:layout_width="match_parent"
                 android:layout_height="2000dp"
                 android:orientation="vertical">
 
-                <!-- maybe add a recycler view -->
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
@@ -55,26 +56,60 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_height="@dimen/main_fab_size"
         android:layout_width="@dimen/main_fab_size"
-        android:src="@drawable/ic_gps_not_fixed_24dp"
+        android:layout_height="@dimen/main_fab_size"
+        android:layout_marginLeft="@dimen/main_fab_left_margin"
+        android:src="@drawable/ic_search_27dp_white"
         app:elevation="0dp"
-        android:layout_marginLeft="@dimen/main_fab_left_margin"
         />
 
-    <View
-        android:id="@+id/fab_dumy"
-        android:layout_height="@dimen/main_fab_size"
-        android:layout_width="@dimen/main_fab_size"
-        android:background="@color/colorAccent"
-        android:visibility="gone"
-        android:layout_marginLeft="@dimen/main_fab_left_margin"
-        />
-
-    <EditText
-        android:id="@+id/search"
+    <RelativeLayout
+        android:id="@+id/fab_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_fab_size"
-        android:visibility="gone" />
-    
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/ic_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/main_search_left_margin"
+            android:layout_marginRight="@dimen/main_search_left_margin"
+            android:src="@drawable/ic_search_24dp"
+            android:visibility="gone"
+            />
+
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/ic_search"
+            android:focusable="false"
+            android:visibility="gone"
+            android:background="@android:color/transparent"
+            android:hint="@string/main_is_where_travel"
+            />
+
+        <ImageView
+            android:id="@+id/fab_dumy"
+            android:layout_width="@dimen/main_fab_size"
+            android:layout_height="@dimen/main_fab_size"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/main_fab_left_margin"
+            android:layout_marginRight="@dimen/main_fab_left_margin"
+            android:background="@drawable/ic_brightness_1_black_24dp"
+            android:visibility="gone"
+            />
+
+        <View
+            android:id="@+id/search_underline"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray"
+            />
+
+    </RelativeLayout>
 </FrameLayout>
