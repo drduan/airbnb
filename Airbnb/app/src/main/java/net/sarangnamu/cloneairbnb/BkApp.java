@@ -19,6 +19,8 @@ package net.sarangnamu.cloneairbnb;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Point;
+import android.view.WindowManager;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 25.. <p/>
@@ -27,15 +29,29 @@ public class BkApp extends Application {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(BkApp.class);
 
     private static Context mContext;
-
-    public static Context context() {
-        return mContext;
-    }
+    private static Point mScreen = new Point();
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         mContext = getApplicationContext();
+    }
+
+    private void getScreenWidth() {
+        WindowManager manager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
+        manager.getDefaultDisplay().getSize(mScreen);
+    }
+
+    public static Context context() {
+        return mContext;
+    }
+
+    public static int screenX() {
+        return mScreen.x;
+    }
+
+    public static int screenY() {
+        return mScreen.y;
     }
 }

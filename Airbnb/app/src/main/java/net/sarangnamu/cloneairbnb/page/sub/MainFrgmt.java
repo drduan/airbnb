@@ -59,27 +59,17 @@ public class MainFrgmt extends PageFrgmtBase {
     @Bind(R.id.search_underline) View mSearchUnderline;
 
     private int mOldValue = 0, mBitmapHeight = 0;
-    private int mScreenWidth;
     private boolean mAnimate = false;
 
     @Override
     protected void initLayout() {
         super.initLayout();
 
-        getScreenWidth();
         setFadeImageHeight();
         setImageList();
         setContentLayoutPadding();
         setScrollView();
         setFab();
-    }
-
-    private void getScreenWidth() {
-        WindowManager manager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-        Point pt = new Point();
-        manager.getDefaultDisplay().getSize(pt);
-
-        mScreenWidth = pt.x;
     }
 
     private void setFadeImageHeight() {
