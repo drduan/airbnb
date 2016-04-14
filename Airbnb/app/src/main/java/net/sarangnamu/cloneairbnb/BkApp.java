@@ -36,9 +36,10 @@ public class BkApp extends Application {
         super.onCreate();
 
         mContext = getApplicationContext();
+        initScreenWidth();
     }
 
-    private void getScreenWidth() {
+    private void initScreenWidth() {
         WindowManager manager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
         manager.getDefaultDisplay().getSize(mScreen);
     }
