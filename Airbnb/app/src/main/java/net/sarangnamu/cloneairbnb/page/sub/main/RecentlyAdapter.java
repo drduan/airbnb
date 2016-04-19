@@ -49,14 +49,13 @@ public class RecentlyAdapter extends RecyclerView.Adapter {
         RecentlyViewHolder vh = (RecentlyViewHolder) holder;
         RecentlyData data = new RecentlyData();
 
-        // DEMO
+        // DEMO code
         data.title = "TITLE TITLE";
         data.description = "test test test";
         data.price = "\\10,000";
         data.unit = "KRW\n박";
 
         vh.setData(data);
-//        vh.setData(); // choice db by position
     }
 
     @Override
