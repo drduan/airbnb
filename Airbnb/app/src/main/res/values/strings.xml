@@ -28,5 +28,10 @@
     <string name="travel_tab2">tab2</string>
 
     <string name="main_is_where_travel">어디 여행 가세요?</string>
+    <string name="main_hello">%s님, 안녕하세요!</string>
+    <string name="main_message">전 세계 숙소들이 블라블라 어쩌고 저쩌고 이러쿵 저러쿵 쿵쿵쿵</string>
+    <string name="main_recyler_recently">최근 조회</string>
+    <string name="main_recyler_recommandation">추천항목</string>
+    <string name="main_recyler_famous">유명한 그곳</string>
 
 </resources>

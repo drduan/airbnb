@@ -53,7 +53,9 @@ dependencies {
     }
     compile 'org.slf4j:slf4j-api:1.7.5'
     compile 'com.jakewharton:butterknife:7.0.1'
-    //    compile 'com.github.aucd29:frgmt:1.0.1'
-    compile project(':libfrgmt')
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
+
+    compile project(':libfrgmt')
+    compile 'com.github.aucd29:ui:1.0.2'
 }

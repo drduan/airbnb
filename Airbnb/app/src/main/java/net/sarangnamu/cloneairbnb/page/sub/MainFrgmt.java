@@ -22,7 +22,9 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -30,9 +32,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import net.sarangnamu.cloneairbnb.R;
+import net.sarangnamu.cloneairbnb.model.Cfg;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
+import net.sarangnamu.cloneairbnb.page.sub.main.RecentlyAdapter;
+import net.sarangnamu.cloneairbnb.page.sub.main.TitleRecylerView;
 import net.sarangnamu.common.ani.AnimatorEndListener;
 import net.sarangnamu.common.ui.image.BkFadeImageView;
 import net.sarangnamu.common.ui.scroll.BkScrollView;
@@ -58,6 +64,12 @@ public class MainFrgmt extends PageFrgmtBase {
     @Bind(R.id.ic_search) ImageView mIconSearch;
     @Bind(R.id.search_underline) View mSearchUnderline;
 
+    @Bind(R.id.hello) TextView mHello;
+
+    @Bind(R.id.recently) TitleRecylerView mRecently;
+    @Bind(R.id.recommandation) TitleRecylerView mRecommandation;
+    @Bind(R.id.famous) TitleRecylerView mFamous;
+
     private int mOldValue = 0, mBitmapHeight = 0;
     private boolean mAnimate = false;
 
@@ -70,6 +82,11 @@ public class MainFrgmt extends PageFrgmtBase {
         setContentLayoutPadding();
         setScrollView();
         setFab();
+
+        setUserInfo();
+        setRecentlyList();
+        setRecommandationList();
+        setFamousList();
     }
 
     private void setFadeImageHeight() {
@@ -147,11 +164,7 @@ public class MainFrgmt extends PageFrgmtBase {
                 mFab.setVisibility(View.GONE);
                 mFabLayout.setBackgroundResource(android.R.color.white);
                 mFabLayout.setVisibility(View.VISIBLE);
-
-                mFabDumy.setVisibility(View.VISIBLE);
-                mIconSearch.setVisibility(View.VISIBLE);
-                mSearch.setVisibility(View.VISIBLE);
-                mSearchUnderline.setVisibility(View.VISIBLE);
+                setChildVisibility(View.VISIBLE);
 
                 mFabDumy.animate().alpha(0).scaleX(20).scaleY(20).setDuration(400).setListener(new AnimatorEndListener() {
                     @Override
@@ -166,6 +179,7 @@ public class MainFrgmt extends PageFrgmtBase {
 
                 mFabLayout.setBackgroundResource(android.R.color.transparent);
                 mSearchUnderline.setVisibility(View.GONE);
+                mSearch.setAlpha(0);
 
                 mFabDumy.animate().alpha(1).scaleX(1).scaleY(1).setDuration(300).setListener(new AnimatorEndListener() {
                     @Override
@@ -173,9 +187,9 @@ public class MainFrgmt extends PageFrgmtBase {
                         mAnimate = false;
 
                         mFab.setVisibility(View.VISIBLE);
-                        mFabDumy.setVisibility(View.GONE);
-                        mIconSearch.setVisibility(View.GONE);
-                        mSearch.setVisibility(View.GONE);
+                        setChildVisibility(View.GONE);
+
+                        mSearch.setAlpha(1);
                         mFabLayout.setVisibility(View.GONE);
                     }
                 });
@@ -190,6 +204,38 @@ public class MainFrgmt extends PageFrgmtBase {
             view.setVisibility(visible);
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
+    // CONTENTS
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
+
+    private void setUserInfo() {
+        String value = String.format(getString(R.string.main_hello), Cfg.USERINFO);
+        mHello.setText(value);
+    }
+
+    private void setRecentlyList() {
+        setListItem(mRecently, R.string.main_recyler_recently, new RecentlyAdapter(getActivity()));
+    }
+
+    private void setRecommandationList() {
+        setListItem(mRecommandation, R.string.main_recyler_recommandation, null);
+    }
+
+    private void setFamousList() {
+        setListItem(mFamous, R.string.main_recyler_famous, null);
+    }
+
+    private void setListItem(TitleRecylerView view, @StringRes int titleid, RecyclerView.Adapter adapter) {
+        view.setTitle(titleid);
+        view.setTitleSize(18);
+        view.setTitlePadding(dpToPixelInt(15), dpToPixelInt(20), dpToPixelInt(20), dpToPixelInt(15));
+        view.setLineViewBackground(0xffdedede);
+        view.setAdapter(adapter);
+    }
+
 }
 
 
