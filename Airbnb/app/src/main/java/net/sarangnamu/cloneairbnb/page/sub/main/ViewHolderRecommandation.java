@@ -32,26 +32,26 @@ import butterknife.Bind;
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 25.. <p/>
  */
-public class ViewHolderRecommandation {
-//    @Bind(R.id.title) TextView mTitle;
-//    @Bind(R.id.description) TextView mDescription;
-//
-//    public ViewHolderRecommandation(View parent, @LayoutRes int layoutId, int viewType) {
-//        super(parent, layoutId, viewType);
-//
-////        itemView.setOnClickListener(v -> {
-////            RecommandationData posdata = getAdapterData(getLayoutPosition());
-////            Toast.makeText(v.getContext(), "recently: " + getLayoutPosition() + ", title : " + posdata.title, Toast.LENGTH_SHORT).show();
-////        });
-//    }
-//
-//    @Override
-//    public void setData(Object data) {
-//        if (data == null) {
-//            return ;
-//        }
-//
-////        mTitle.setText(data.title);
-////        mDescription.setText(data.description);
-//    }
+public class ViewHolderRecommandation extends BkViewHolder<RecommandationData> {
+    @Bind(R.id.title) TextView mTitle;
+    @Bind(R.id.description) TextView mDescription;
+
+    public ViewHolderRecommandation(View parent, @LayoutRes int layoutId, int viewType, IBkAdapterData data) {
+        super(parent, layoutId, viewType, data);
+
+        itemView.setOnClickListener(v -> {
+            RecommandationData posdata = getAdapterData(getLayoutPosition());
+            Toast.makeText(v.getContext(), "recently: " + getLayoutPosition() + ", title : " + posdata.title, Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    @Override
+    public void setData(RecommandationData data) {
+        if (data == null) {
+            return ;
+        }
+
+        mTitle.setText(data.title);
+        mDescription.setText(data.description);
+    }
 }

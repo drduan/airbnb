@@ -236,13 +236,23 @@ public class MainFrgmt extends PageFrgmtBase {
     }
 
     private void setRecommandationList() {
-//        setListItem(mRecommandation, R.string.main_recyler_recommandation,
-//                new BkAdapter<ViewHolderRecommandation>(R.layout.main_list_row_recommandation, DbHelper.getInstance()));
+        setListItem(mRecommandation, R.string.main_recyler_recommandation,
+                new BkAdapter<ViewHolderRecommandation>(R.layout.main_list_row_recommandation) {
+                    @Override
+                    protected IBkAdapterData getAdapterData() {
+                        return DbHelper.getInstance();
+                    }
+                });
     }
 
     private void setFamousList() {
-//        setListItem(mFamous, R.string.main_recyler_famous,
-//                new BkAdapter<ViewHolderFamous>(R.layout.main_list_row_famous, DbHelper.getInstance()));
+        setListItem(mFamous, R.string.main_recyler_famous,
+                new BkAdapter<ViewHolderFamous>(R.layout.main_list_row_famous) {
+                    @Override
+                    protected IBkAdapterData getAdapterData() {
+                        return DbHelper.getInstance();
+                    }
+                });
     }
 
     private void setListItem(HorListView view, @StringRes int titleid, RecyclerView.Adapter adapter) {

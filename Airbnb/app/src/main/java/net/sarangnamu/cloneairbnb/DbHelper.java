@@ -33,6 +33,10 @@ import io.realm.RealmConfiguration;
 public class DbHelper implements IBkAdapterData {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(DbHelper.class);
 
+    private static final String VH_FAMOUS         = "ViewHolderFamous";
+    private static final String VH_RECENTLY       = "ViewHolderRecently";
+    private static final String VH_RECOMMANDATION = "ViewHolderRecommandation";
+
     private static DbHelper mInst;
 
     public static DbHelper getInstance() {
@@ -67,29 +71,34 @@ public class DbHelper implements IBkAdapterData {
     @Override
     public int getItemCount(String name) {
         mLog.debug("view holder name : " + name);
+
+        if (VH_RECENTLY.equals(name)) {
+            return 0;
+        }
+
         return 3;
     }
 
     @Override
     public Object getData(String name, int pos) {
-        if ("ViewHolderFamous".equals(name)) {
-            FamousData data = new FamousData();
-            data.title = name + " title";
-            data.description = "description";
-
-            return data;
-        } else if ("ViewHolderRecently".equals(name)) {
+        if (VH_RECENTLY.equals(name)) {
             RecentlyData data = new RecentlyData();
             data.title = name + " title";
-            data.description = "description";
+            data.description = name + " description";
             data.price = "100";
             data.unit = "$\n박";
 
             return data;
-        } else if ("ViewHolderRecommandation".equals(name)) {
+        } else if (VH_RECOMMANDATION.equals(name)) {
             RecommandationData data = new RecommandationData();
-            data.title = name = " title";
-            data.description = "description";
+            data.title = name + " title";
+            data.description = name + " description";
+
+            return data;
+        } else if (VH_FAMOUS.equals(name)) {
+            FamousData data = new FamousData();
+            data.title = name + " title";
+            data.description = name + " description";
 
             return data;
         }

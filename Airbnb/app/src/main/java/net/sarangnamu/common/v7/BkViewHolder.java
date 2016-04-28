@@ -48,7 +48,7 @@ public abstract class BkViewHolder<DT> extends RecyclerView.ViewHolder {
 
     public DT getAdapterData(int pos) {
         if (mAdapterData == null) {
-            mLog.error("");
+            mLog.error("mAdapterData == null");
             return null;
         }
 
