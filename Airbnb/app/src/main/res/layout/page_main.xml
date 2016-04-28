@@ -20,7 +20,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <net.sarangnamu.common.ui.image.BkFadeImageView
         android:id="@+id/fade_image"
@@ -43,7 +44,8 @@
                 android:id="@+id/content_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <TextView
                     android:id="@+id/hello"
@@ -51,7 +53,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="35sp"
                     android:layout_margin="20dp"
-                    android:text="@string/main_hello"/>
+                    android:text="@string/main_hello"
+                    />
 
                 <TextView
                     android:id="@+id/message"
@@ -61,20 +64,26 @@
                     android:layout_margin="20dp"
                     android:text="@string/main_message"/>
 
-                <net.sarangnamu.cloneairbnb.page.sub.main.TitleRecylerView
+                <net.sarangnamu.cloneairbnb.page.sub.main.HorListView
                     android:id="@+id/recently"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15sp"
+                    />
 
-                <net.sarangnamu.cloneairbnb.page.sub.main.TitleRecylerView
+                <net.sarangnamu.cloneairbnb.page.sub.main.HorListView
                     android:id="@+id/recommandation"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15sp"
+                    />
 
-                <net.sarangnamu.cloneairbnb.page.sub.main.TitleRecylerView
+                <net.sarangnamu.cloneairbnb.page.sub.main.HorListView
                     android:id="@+id/famous"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15sp"
+                    />
 
             </LinearLayout>
         </RelativeLayout>

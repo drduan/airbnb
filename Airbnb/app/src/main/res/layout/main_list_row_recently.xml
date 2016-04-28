@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2016. Burke Choi All rights reserved.
+  ~             http://www.sarangnamu.net
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="10dp">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="325dp"
+        android:layout_height="180dp"
+        android:background="@drawable/test1"
+        />
+
+    <ToggleButton
+        android:id="@+id/favorite"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:button="@drawable/selector_favorite"
+        android:background="@android:color/transparent"
+        android:textOn=""
+        android:textOff=""
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/image"
+        android:layout_alignEnd="@+id/image"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_below="@+id/image"
+        />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ececec"
+        android:textSize="12sp"
+        android:layout_below="@+id/title"
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/seller_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/title"
+        android:src="@drawable/hugh"
+        app:civ_border_color="#FFffffff"
+        app:civ_border_width="2dp"
+        android:translationY="25dp"
+        android:translationX="-20dp"
+        android:layout_alignRight="@+id/image"
+        android:layout_alignEnd="@+id/image"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="#7f000000"
+        android:layout_above="@+id/title"
+        android:layout_marginBottom="20dp"
+        >
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            />
+
+        <TextView
+            android:id="@+id/unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:layout_toRightOf="@+id/price"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="10dp"
+            />
+
+    </RelativeLayout>
+</RelativeLayout>

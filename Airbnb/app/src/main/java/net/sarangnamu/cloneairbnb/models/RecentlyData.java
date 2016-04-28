@@ -15,13 +15,23 @@
  * limitations under the License.
  */
 
-package net.sarangnamu.cloneairbnb.model;
+package net.sarangnamu.cloneairbnb.models;
+
+import io.realm.RealmObject;
 
 /**
- * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 15.. <p/>
+ * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 19.. <p/>
  */
-public class Cfg {
-    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(Cfg.class);
+public class RecentlyData extends RealmObject {
+    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(RecentlyData.class);
 
-    public static final String USERINFO = "Burke Choi";
+    public String title;
+    public String description;
+
+    public String price;
+    public String unit;
+
+    public byte[] background;
+    public boolean favorite;
+    public byte[] seller;
 }

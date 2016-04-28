@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">cloneAirBnb</string>
+    <string name="app_name">"Burke's AirBnB"</string>
 
     <!-- wish -->
     <string-array name="wish_empty">

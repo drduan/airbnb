@@ -17,25 +17,27 @@
 
 package net.sarangnamu.cloneairbnb.page.sub.main;
 
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import net.sarangnamu.cloneairbnb.R;
-import net.sarangnamu.cloneairbnb.model.RecentlyData;
+import net.sarangnamu.cloneairbnb.models.RecentlyData;
+import net.sarangnamu.common.v7.BkViewHolder;
+import net.sarangnamu.common.v7.IBkAdapterData;
+
+import java.util.Objects;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 19.. <p/>
  */
-public class RecentlyViewHolder extends RecyclerView.ViewHolder {
-    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(RecentlyViewHolder.class);
-
+public class ViewHolderRecently extends BkViewHolder<RecentlyData> {
     @Bind(R.id.title) TextView mTitle;
     @Bind(R.id.description) TextView mDescription;
     @Bind(R.id.price) TextView mPrice;
@@ -44,20 +46,23 @@ public class RecentlyViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.image) ImageView mImage;
     @Bind(R.id.seller_image) CircleImageView mCeller;
 
-    public RecentlyViewHolder(View itemView) {
-        super(itemView);
+    public ViewHolderRecently(View parent, @LayoutRes int layoutId, int viewType, IBkAdapterData data) {
+        super(parent, layoutId, viewType, data);
 
-        ButterKnife.bind(itemView);
+        itemView.setOnClickListener(v -> {
+            RecentlyData posdata = getAdapterData(getLayoutPosition());
+            Toast.makeText(v.getContext(), "recently: " + getLayoutPosition() + ", title : " + posdata.title, Toast.LENGTH_SHORT).show();
+        });
     }
 
     public void setData(RecentlyData data) {
-        // TODO
+        if (data == null) {
+            return ;
+        }
 
         mTitle.setText(data.title);
         mDescription.setText(data.description);
         mPrice.setText(data.price);
         mUnit.setText(data.unit);
-
-        // set images
     }
 }

@@ -18,34 +18,41 @@
 package net.sarangnamu.cloneairbnb.page.sub;
 
 import android.animation.Animator;
-import android.content.Context;
-import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import net.sarangnamu.cloneairbnb.DbHelper;
 import net.sarangnamu.cloneairbnb.R;
-import net.sarangnamu.cloneairbnb.model.Cfg;
+import net.sarangnamu.cloneairbnb.models.Cfg;
+import net.sarangnamu.cloneairbnb.models.FamousData;
+import net.sarangnamu.cloneairbnb.models.RecentlyData;
+import net.sarangnamu.cloneairbnb.models.RecommandationData;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
-import net.sarangnamu.cloneairbnb.page.sub.main.RecentlyAdapter;
-import net.sarangnamu.cloneairbnb.page.sub.main.TitleRecylerView;
+import net.sarangnamu.cloneairbnb.page.sub.main.HorListView;
+import net.sarangnamu.cloneairbnb.page.sub.main.ViewHolderFamous;
+import net.sarangnamu.cloneairbnb.page.sub.main.ViewHolderRecently;
+import net.sarangnamu.cloneairbnb.page.sub.main.ViewHolderRecommandation;
 import net.sarangnamu.common.ani.AnimatorEndListener;
 import net.sarangnamu.common.ui.image.BkFadeImageView;
 import net.sarangnamu.common.ui.scroll.BkScrollView;
+import net.sarangnamu.common.v7.BkAdapter;
+import net.sarangnamu.common.v7.IBkAdapterData;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import butterknife.OnItemClick;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 21.. <p/>
@@ -66,9 +73,9 @@ public class MainFrgmt extends PageFrgmtBase {
 
     @Bind(R.id.hello) TextView mHello;
 
-    @Bind(R.id.recently) TitleRecylerView mRecently;
-    @Bind(R.id.recommandation) TitleRecylerView mRecommandation;
-    @Bind(R.id.famous) TitleRecylerView mFamous;
+    @Bind(R.id.recently) HorListView mRecently;
+    @Bind(R.id.recommandation) HorListView mRecommandation;
+    @Bind(R.id.famous) HorListView mFamous;
 
     private int mOldValue = 0, mBitmapHeight = 0;
     private boolean mAnimate = false;
@@ -217,25 +224,34 @@ public class MainFrgmt extends PageFrgmtBase {
     }
 
     private void setRecentlyList() {
-        setListItem(mRecently, R.string.main_recyler_recently, new RecentlyAdapter(getActivity()));
+        // 원래는 view pager 를 이용해야 하지만 공부 차원에서 작성하는 것이므로 사용안해 본
+        // recycler view 로 진행 :)
+        setListItem(mRecently, R.string.main_recyler_recently,
+                new BkAdapter<ViewHolderRecently>(R.layout.main_list_row_recently) {
+                    @Override
+                    protected IBkAdapterData getAdapterData() {
+                        return DbHelper.getInstance();
+                    }
+                });
     }
 
     private void setRecommandationList() {
-        setListItem(mRecommandation, R.string.main_recyler_recommandation, null);
+//        setListItem(mRecommandation, R.string.main_recyler_recommandation,
+//                new BkAdapter<ViewHolderRecommandation>(R.layout.main_list_row_recommandation, DbHelper.getInstance()));
     }
 
     private void setFamousList() {
-        setListItem(mFamous, R.string.main_recyler_famous, null);
+//        setListItem(mFamous, R.string.main_recyler_famous,
+//                new BkAdapter<ViewHolderFamous>(R.layout.main_list_row_famous, DbHelper.getInstance()));
     }
 
-    private void setListItem(TitleRecylerView view, @StringRes int titleid, RecyclerView.Adapter adapter) {
+    private void setListItem(HorListView view, @StringRes int titleid, RecyclerView.Adapter adapter) {
         view.setTitle(titleid);
         view.setTitleSize(18);
-        view.setTitlePadding(dpToPixelInt(15), dpToPixelInt(20), dpToPixelInt(20), dpToPixelInt(15));
+        view.setTitlePadding(0, dpToPixelInt(20), dpToPixelInt(20), dpToPixelInt(15));
         view.setLineViewBackground(0xffdedede);
         view.setAdapter(adapter);
     }
-
 }
 
 

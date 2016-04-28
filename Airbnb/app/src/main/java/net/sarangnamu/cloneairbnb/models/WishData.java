@@ -1,4 +1,4 @@
-package net.sarangnamu.cloneairbnb.model;
+package net.sarangnamu.cloneairbnb.models;
 
 import io.realm.RealmObject;
 import io.realm.annotations.Required;

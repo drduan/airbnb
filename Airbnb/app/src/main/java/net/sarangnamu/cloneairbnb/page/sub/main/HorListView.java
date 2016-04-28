@@ -19,6 +19,8 @@ package net.sarangnamu.cloneairbnb.page.sub.main;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -30,24 +32,24 @@ import net.sarangnamu.common.ui.LinearBase;
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 18.. <p/>
  */
-public class TitleRecylerView extends LinearBase {
-    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(TitleRecylerView.class);
+public class HorListView extends LinearBase {
+    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(HorListView.class);
 
-    private View mLineView;
+    private View mLine;
     private TextView mTitle;
     private RecyclerView mRecyler;
     
-    public TitleRecylerView(Context context) {
+    public HorListView(Context context) {
         super(context);
         initLayout();
     }
     
-    public TitleRecylerView(Context context, AttributeSet attrs) {
+    public HorListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initLayout();
     }
     
-    public TitleRecylerView(Context context, AttributeSet attrs, int defStyle) {
+    public HorListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initLayout();
     }
@@ -55,21 +57,24 @@ public class TitleRecylerView extends LinearBase {
     protected void initLayout() {
         setOrientation(VERTICAL);
 
-        mLineView = new View(getContext());
+        mLine    = new View(getContext());
         mTitle   = new TextView(getContext());
         mRecyler = new RecyclerView(getContext());
 
-        addView(mLineView, LayoutParams.MATCH_PARENT, dpToPixelInt(1));
+        mRecyler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        mRecyler.setItemAnimator(new DefaultItemAnimator());
+
+        addView(mLine, LayoutParams.MATCH_PARENT, dpToPixelInt(1));
         addView(mTitle, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         addView(mRecyler, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     }
 
     public void setLineViewBackground(int color) {
-        mLineView.setBackgroundColor(color);
+        mLine.setBackgroundColor(color);
     }
 
     public void setShowLine(boolean show) {
-        mLineView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mLine.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     public void setTitle(@StringRes int resid) {
