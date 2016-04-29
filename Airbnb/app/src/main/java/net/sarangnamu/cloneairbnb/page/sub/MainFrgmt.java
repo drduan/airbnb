@@ -19,6 +19,7 @@ package net.sarangnamu.cloneairbnb.page.sub;
 
 import android.animation.Animator;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
@@ -30,14 +31,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import net.sarangnamu.cloneairbnb.DbHelper;
+import net.sarangnamu.cloneairbnb.DataManager;
+import net.sarangnamu.cloneairbnb.NetHelper;
 import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.cloneairbnb.models.Cfg;
-import net.sarangnamu.cloneairbnb.models.FamousData;
-import net.sarangnamu.cloneairbnb.models.RecentlyData;
-import net.sarangnamu.cloneairbnb.models.RecommandationData;
+import net.sarangnamu.cloneairbnb.net.domain.MainResponse;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
 import net.sarangnamu.cloneairbnb.page.sub.main.HorListView;
 import net.sarangnamu.cloneairbnb.page.sub.main.ViewHolderFamous;
@@ -52,7 +51,6 @@ import net.sarangnamu.common.v7.IBkAdapterData;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.OnItemClick;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 21.. <p/>
@@ -91,9 +89,38 @@ public class MainFrgmt extends PageFrgmtBase {
         setFab();
 
         setUserInfo();
-        setRecentlyList();
-        setRecommandationList();
-        setFamousList();
+
+        // Realm objects can only be accessed on the thread they were created.
+        DataManager.getInstance().initRecentlyData();
+
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... data) {
+                MainResponse maindata = NetHelper.getInstance().get(NetHelper.MAIN, MainResponse.class);
+                if (maindata == null) {
+                    return false;
+                }
+
+                if (mLog.isDebugEnabled()) {
+                    mLog.debug("SIZE: " + maindata.getRecommandationList().size() + ", " + maindata.getFamousList().size());
+                }
+
+                DataManager.getInstance().setMainResponse(maindata);
+
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                if (!result) {
+                    return ;
+                }
+
+                setRecentlyList();
+                setRecommandationList();
+                setFamousList();
+            }
+        }.execute();
     }
 
     private void setFadeImageHeight() {
@@ -230,7 +257,7 @@ public class MainFrgmt extends PageFrgmtBase {
                 new BkAdapter<ViewHolderRecently>(R.layout.main_list_row_recently) {
                     @Override
                     protected IBkAdapterData getAdapterData() {
-                        return DbHelper.getInstance();
+                        return DataManager.getInstance();
                     }
                 });
     }
@@ -240,7 +267,7 @@ public class MainFrgmt extends PageFrgmtBase {
                 new BkAdapter<ViewHolderRecommandation>(R.layout.main_list_row_recommandation) {
                     @Override
                     protected IBkAdapterData getAdapterData() {
-                        return DbHelper.getInstance();
+                        return DataManager.getInstance();
                     }
                 });
     }
@@ -250,7 +277,7 @@ public class MainFrgmt extends PageFrgmtBase {
                 new BkAdapter<ViewHolderFamous>(R.layout.main_list_row_famous) {
                     @Override
                     protected IBkAdapterData getAdapterData() {
-                        return DbHelper.getInstance();
+                        return DataManager.getInstance();
                     }
                 });
     }

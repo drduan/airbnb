@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.sarangnamu.cloneairbnb.R;
-import net.sarangnamu.cloneairbnb.models.RecommandationData;
+import net.sarangnamu.cloneairbnb.net.resource.Recommandation;
 import net.sarangnamu.common.v7.BkViewHolder;
 import net.sarangnamu.common.v7.IBkAdapterData;
 
@@ -32,7 +32,7 @@ import butterknife.Bind;
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 25.. <p/>
  */
-public class ViewHolderRecommandation extends BkViewHolder<RecommandationData> {
+public class ViewHolderRecommandation extends BkViewHolder<Recommandation> {
     @Bind(R.id.title) TextView mTitle;
     @Bind(R.id.description) TextView mDescription;
 
@@ -40,18 +40,17 @@ public class ViewHolderRecommandation extends BkViewHolder<RecommandationData> {
         super(parent, layoutId, viewType, data);
 
         itemView.setOnClickListener(v -> {
-            RecommandationData posdata = getAdapterData(getLayoutPosition());
-            Toast.makeText(v.getContext(), "recently: " + getLayoutPosition() + ", title : " + posdata.title, Toast.LENGTH_SHORT).show();
+            Recommandation posdata = getAdapterData(getLayoutPosition());
         });
     }
 
     @Override
-    public void setData(RecommandationData data) {
+    public void setData(Recommandation data) {
         if (data == null) {
             return ;
         }
 
-        mTitle.setText(data.title);
-        mDescription.setText(data.description);
+        mTitle.setText(data.getTitle());
+        mDescription.setText(data.getDescription());
     }
 }

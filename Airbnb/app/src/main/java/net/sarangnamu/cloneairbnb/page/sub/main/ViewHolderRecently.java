@@ -51,7 +51,6 @@ public class ViewHolderRecently extends BkViewHolder<RecentlyData> {
 
         itemView.setOnClickListener(v -> {
             RecentlyData posdata = getAdapterData(getLayoutPosition());
-            Toast.makeText(v.getContext(), "recently: " + getLayoutPosition() + ", title : " + posdata.title, Toast.LENGTH_SHORT).show();
         });
     }
 

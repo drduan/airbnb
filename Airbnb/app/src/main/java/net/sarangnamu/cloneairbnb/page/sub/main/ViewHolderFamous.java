@@ -25,6 +25,7 @@ import android.widget.Toast;
 import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.cloneairbnb.models.FamousData;
 import net.sarangnamu.cloneairbnb.models.RecentlyData;
+import net.sarangnamu.cloneairbnb.net.resource.Famous;
 import net.sarangnamu.common.v7.BkViewHolder;
 import net.sarangnamu.common.v7.IBkAdapterData;
 
@@ -33,7 +34,7 @@ import butterknife.Bind;
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 25.. <p/>
  */
-public class ViewHolderFamous extends BkViewHolder<FamousData> {
+public class ViewHolderFamous extends BkViewHolder<Famous> {
     @Bind(R.id.title) TextView mTitle;
     @Bind(R.id.description) TextView mDescription;
 
@@ -41,18 +42,17 @@ public class ViewHolderFamous extends BkViewHolder<FamousData> {
         super(parent, layoutId, viewType, data);
 
         itemView.setOnClickListener(v -> {
-            FamousData posdata = getAdapterData(getLayoutPosition());
-            Toast.makeText(v.getContext(), "recently: " + getLayoutPosition() + ", title : " + posdata.title, Toast.LENGTH_SHORT).show();
+            Famous posdata = getAdapterData(getLayoutPosition());
         });
     }
 
     @Override
-    public void setData(FamousData data) {
+    public void setData(Famous data) {
         if (data == null) {
             return ;
         }
 
-        mTitle.setText(data.title);
-        mDescription.setText(data.description);
+        mTitle.setText(data.getTitle());
+        mDescription.setText(data.getDescription());
     }
 }
