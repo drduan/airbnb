@@ -17,8 +17,11 @@
 
 package net.sarangnamu.cloneairbnb;
 
+import android.content.Context;
+
 import net.sarangnamu.cloneairbnb.models.RecentlyData;
 import net.sarangnamu.cloneairbnb.net.domain.MainResponse;
+import net.sarangnamu.common.realm.RealmUtil;
 import net.sarangnamu.common.v7.IBkAdapterData;
 
 import java.util.List;
@@ -36,12 +39,16 @@ public class DataManager implements IBkAdapterData {
     private static final String VH_RECENTLY       = "ViewHolderRecently";
     private static final String VH_RECOMMANDATION = "ViewHolderRecommandation";
 
+    private static final int MAIN_MAX_FAMOUS_COUNT = 4;
+
     private static DataManager mInst;
 
     private RealmConfiguration mRealmConfig;
     private List<RecentlyData> mRecentlyDataList;
 
     private MainResponse mMainResponse;
+
+    private Context mContext;
 
     public static DataManager getInstance() {
         if (mInst == null) {
@@ -52,10 +59,22 @@ public class DataManager implements IBkAdapterData {
     }
 
     private DataManager() {
+        if (mRealmConfig != null) {
+            Realm.deleteRealm(mRealmConfig);
+            mRealmConfig = null;
+        }
+    }
 
+    // for testcase
+    public void setContext(Context context) {
+        mContext = context;
     }
 
     public Realm get() {
+        if (mContext == null) {
+            mContext = BkApp.context();
+        }
+
         if (mRealmConfig == null) {
             mRealmConfig = new RealmConfiguration.Builder(BkApp.context()).build();
         }
@@ -75,12 +94,17 @@ public class DataManager implements IBkAdapterData {
         db.commitTransaction();
     }
 
+    public void closeRealm() {
+        get().close();
+    }
+
     public void initRecentlyData() {
         mRecentlyDataList = getRecentlyAll();
     }
 
     public RecentlyData getRecentlyDumyData() {
         RecentlyData data = new RecentlyData();
+        data.id = 0; //RealmUtil.newId(DataManager.getInstance().get(), RecentlyData.class);
         data.title = "dumy title";
         data.description = "dumy description";
         data.unit = "$\nday";
@@ -115,7 +139,12 @@ public class DataManager implements IBkAdapterData {
                 return 0;
             }
 
-            return mMainResponse.getFamousList().size();
+            int size = mMainResponse.getFamousList().size();
+            if (size > MAIN_MAX_FAMOUS_COUNT) {
+                return MAIN_MAX_FAMOUS_COUNT;
+            }
+
+            return size;
         }
 
         return 0;

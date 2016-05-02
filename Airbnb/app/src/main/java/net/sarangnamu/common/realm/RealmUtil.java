@@ -15,28 +15,28 @@
  * limitations under the License.
  */
 
-package net.sarangnamu.cloneairbnb.models;
+package net.sarangnamu.common.realm;
 
-import net.sarangnamu.cloneairbnb.DataManager;
-import net.sarangnamu.common.realm.RealmUtil;
-
+import io.realm.Realm;
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 19.. <p/>
+ * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 29.. <p/>
+ *
+ * @see http://sys1yagi.hatenablog.com/entry/2015/08/14/131226
  */
-public class RecentlyData extends RealmObject {
-    @PrimaryKey
-    public long id;
+public class RealmUtil {
+    private static final String ID = "id";
+    
+    public static long newId(Realm realm, Class<? extends RealmObject> clazz) {
+        return newIdWithIdName(realm, clazz, ID);
+    }
 
-    public String title;
-    public String description;
-
-    public String price;
-    public String unit;
-
-    public byte[] background;
-    public boolean favorite;
-    public byte[] seller;
+    public static long newIdWithIdName(Realm realm, Class<? extends RealmObject> clazz, String idName) {
+        try {
+            return realm.where(clazz).max(idName).longValue() + 1;
+        } catch (NullPointerException e) {
+            return 1;
+        }
+    }
 }
