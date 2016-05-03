@@ -17,6 +17,7 @@
 
 package net.sarangnamu.cloneairbnb.page.sub.main;
 
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.widget.ImageView;
@@ -51,6 +52,10 @@ public class ViewHolderRecently extends BkViewHolder<RecentlyData> {
 
         itemView.setOnClickListener(v -> {
             RecentlyData posdata = getAdapterData(getLayoutPosition());
+
+            Bundle bundle = new Bundle();
+
+            MainPageManager.getInstance().replace(R.id.content_main, MainListDetailFrgmt.class, bundle);
         });
     }
 

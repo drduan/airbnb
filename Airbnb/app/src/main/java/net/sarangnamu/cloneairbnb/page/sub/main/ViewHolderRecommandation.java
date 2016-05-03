@@ -17,6 +17,7 @@
 
 package net.sarangnamu.cloneairbnb.page.sub.main;
 
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.widget.TextView;
@@ -41,6 +42,10 @@ public class ViewHolderRecommandation extends BkViewHolder<Recommandation> {
 
         itemView.setOnClickListener(v -> {
             Recommandation posdata = getAdapterData(getLayoutPosition());
+
+            Bundle bundle = new Bundle();
+
+            MainPageManager.getInstance().replace(R.id.content_main, MainListDetailFrgmt.class, bundle);
         });
     }
 

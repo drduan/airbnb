@@ -39,6 +39,7 @@ import net.sarangnamu.cloneairbnb.models.Cfg;
 import net.sarangnamu.cloneairbnb.net.domain.MainResponse;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
 import net.sarangnamu.cloneairbnb.page.sub.main.HorListView;
+import net.sarangnamu.cloneairbnb.page.sub.main.MainPageManager;
 import net.sarangnamu.cloneairbnb.page.sub.main.ViewHolderFamous;
 import net.sarangnamu.cloneairbnb.page.sub.main.ViewHolderRecently;
 import net.sarangnamu.cloneairbnb.page.sub.main.ViewHolderRecommandation;
@@ -81,6 +82,8 @@ public class MainFrgmt extends PageFrgmtBase {
     @Override
     protected void initLayout() {
         super.initLayout();
+
+        MainPageManager.getInstance().setFragmentManager(getActivity());
 
         setFadeImageHeight();
         setImageList();

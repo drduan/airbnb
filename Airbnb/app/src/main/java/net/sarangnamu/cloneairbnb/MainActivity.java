@@ -102,4 +102,12 @@ public class MainActivity extends AppCompatActivity {
 
         super.onDestroy();
     }
+
+    public void setVisibleTabMenu(boolean visible) {
+//        if (visible) {
+//            mTab.animate().translationY(mTab.getHeight() * -1);
+//        } else {
+//            mTab.animate().translationY(mTab.getHeight());
+//        }
+    }
 }

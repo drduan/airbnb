@@ -15,35 +15,32 @@
  * limitations under the License.
  */
 
-package net.sarangnamu.cloneairbnb.page.sub;
+package net.sarangnamu.cloneairbnb.page.sub.main;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 
 import net.sarangnamu.common.frgmt.FrgmtManager;
 
 /**
- * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 31.. <p/>
+ * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 5. 3.. <p/>
  */
-public class TravelPageManager extends FrgmtManager {
-    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(TravelPageManager.class);
+public class MainPageManager extends FrgmtManager {
+    private static MainPageManager mInst;
 
-    private static TravelPageManager mInst;
-
-    public static TravelPageManager getInstance(Fragment frgmt) {
+    public static MainPageManager getInstance() {
         if (mInst == null) {
-            mInst = new TravelPageManager();
+            mInst = new MainPageManager();
         }
 
-        mInst.setFragmentManager(frgmt);
         return mInst;
     }
 
-    private TravelPageManager() {
+    private MainPageManager() {
 
     }
 
-    public void setFragmentManager(Fragment frgmt) {
-        mFrgmtManager = frgmt.getChildFragmentManager();
+    @Override
+    protected void setTransition(FragmentTransaction trans) {
+        setSlideTransition(trans);
     }
 }

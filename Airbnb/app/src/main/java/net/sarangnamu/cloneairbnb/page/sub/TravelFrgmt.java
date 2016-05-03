@@ -17,12 +17,12 @@
 
 package net.sarangnamu.cloneairbnb.page.sub;
 
-import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
 import net.sarangnamu.cloneairbnb.page.sub.travel.TravelAfterFrgmt;
+import net.sarangnamu.cloneairbnb.page.sub.travel.TravelPageManager;
 import net.sarangnamu.cloneairbnb.page.sub.travel.TravelScheduledFrgmt;
 import net.sarangnamu.common.ui.tab.BkTab;
 

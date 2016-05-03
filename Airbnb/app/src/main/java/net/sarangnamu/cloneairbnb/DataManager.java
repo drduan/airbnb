@@ -115,7 +115,9 @@ public class DataManager implements IBkAdapterData {
 
     @Override
     public int getItemCount(String name) {
-        mLog.debug("view holder name : " + name);
+        if (mLog.isDebugEnabled()) {
+            mLog.debug("view holder name : " + name);
+        }
 
         if (VH_RECENTLY.equals(name)) {
             if (mRecentlyDataList == null) {

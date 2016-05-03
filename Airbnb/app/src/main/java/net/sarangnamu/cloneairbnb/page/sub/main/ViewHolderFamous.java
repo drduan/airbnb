@@ -17,14 +17,12 @@
 
 package net.sarangnamu.cloneairbnb.page.sub.main;
 
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.sarangnamu.cloneairbnb.R;
-import net.sarangnamu.cloneairbnb.models.FamousData;
-import net.sarangnamu.cloneairbnb.models.RecentlyData;
 import net.sarangnamu.cloneairbnb.net.resource.Famous;
 import net.sarangnamu.common.v7.BkViewHolder;
 import net.sarangnamu.common.v7.IBkAdapterData;
@@ -43,6 +41,10 @@ public class ViewHolderFamous extends BkViewHolder<Famous> {
 
         itemView.setOnClickListener(v -> {
             Famous posdata = getAdapterData(getLayoutPosition());
+
+            Bundle bundle = new Bundle();
+
+            MainPageManager.getInstance().replace(R.id.content_main, MainListDetailFrgmt.class, bundle);
         });
     }
 

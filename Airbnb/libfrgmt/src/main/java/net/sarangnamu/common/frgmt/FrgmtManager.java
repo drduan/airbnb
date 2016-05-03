@@ -76,6 +76,15 @@ public abstract class FrgmtManager {
         mFrgmtManager = act.getSupportFragmentManager();
     }
 
+    public void setFragmentManager(Fragment frgmt) {
+        if (frgmt == null) {
+            mLog.error("setFragmentManager frgmt is null");
+            return;
+        }
+
+        mFrgmtManager = frgmt.getChildFragmentManager();
+    }
+
     public void add(int id, Class<?> cls) {
         add(id, cls, false);
     }
