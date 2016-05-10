@@ -198,6 +198,7 @@ public abstract class FrgmtManager {
     }
 
     protected void setHalfSlideTransition(FragmentTransaction trans) {
+        // TODO
         trans.setCustomAnimations(R.anim.slide_in_current_half, 0,
                 0, 0);
     }

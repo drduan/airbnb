@@ -25,8 +25,10 @@ import android.os.Bundle;
 import android.view.Gravity;
 
 import net.sarangnamu.cloneairbnb.menu.MenuManager;
+import net.sarangnamu.cloneairbnb.net.domain.MainResponse;
 import net.sarangnamu.cloneairbnb.page.sub.MainFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.MessageFrgmt;
+import net.sarangnamu.cloneairbnb.page.sub.SplashFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.TravelFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.WishFrgmt;
 import net.sarangnamu.common.ui.tab.BkTab;
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @Bind(R.id.navi_view) NavigationView mNavigationView;
 
+    private boolean mShowSplash = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        initTab();
-        initLayout();
-        initNavigationMenu();
+        initSplash();
+        loadData();
+    }
+
+    private void initSplash() {
+        TabPageManager.getInstance(MainActivity.this).replace(R.id.drawer_layout, SplashFrgmt.class);
     }
 
     private void initTab() {
@@ -88,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (mShowSplash) {
+            return ;
+        }
+
         if (mDrawerLayout.isDrawerOpen(mNavigationView)) {
             mDrawerLayout.closeDrawers();
             return ;
@@ -103,11 +114,50 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void setVisibleTabMenu(boolean visible) {
-//        if (visible) {
-//            mTab.animate().translationY(mTab.getHeight() * -1);
-//        } else {
-//            mTab.animate().translationY(mTab.getHeight());
-//        }
+    private void loadData() {
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... data) {
+                MainResponse maindata = NetHelper.getInstance().get(NetHelper.MAIN, MainResponse.class);
+                if (maindata == null) {
+                    return false;
+                }
+
+                if (mLog.isDebugEnabled()) {
+                    mLog.debug("SIZE: " + maindata.getRecommandationList().size() + ", " + maindata.getFamousList().size());
+                }
+
+                DataManager.getInstance().setMainResponse(maindata);
+
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                if (!result) {
+                    // TODO RETRY
+                    finish();
+                    return ;
+                }
+
+                SplashFrgmt splash = (SplashFrgmt) TabPageManager.getInstance(MainActivity.this).getCurrentFragment();
+                if (splash == null) {
+                    mLog.error("ERROR, NOT FOUND SPLASH FRAGMENT");
+                    finish();
+                    return ;
+                }
+
+                splash.setClose();
+
+                mDrawerLayout.postDelayed(() -> {
+                    initTab();
+                    initLayout();
+                    initNavigationMenu();
+
+                    mShowSplash = false;
+                    TabPageManager.getInstance(MainActivity.this).popBack();
+                }, Cfg.SPLASH_DELAY);
+            }
+        }.execute();
     }
 }

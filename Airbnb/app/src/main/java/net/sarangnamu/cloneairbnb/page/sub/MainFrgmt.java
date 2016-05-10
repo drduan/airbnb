@@ -33,10 +33,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.sarangnamu.cloneairbnb.DataManager;
-import net.sarangnamu.cloneairbnb.NetHelper;
 import net.sarangnamu.cloneairbnb.R;
-import net.sarangnamu.cloneairbnb.models.Cfg;
-import net.sarangnamu.cloneairbnb.net.domain.MainResponse;
+import net.sarangnamu.cloneairbnb.Cfg;
 import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
 import net.sarangnamu.cloneairbnb.page.sub.main.HorListView;
 import net.sarangnamu.cloneairbnb.page.sub.main.MainPageManager;
@@ -90,7 +88,6 @@ public class MainFrgmt extends PageFrgmtBase {
         setContentLayoutPadding();
         setScrollView();
         setFab();
-
         setUserInfo();
 
         // Realm objects can only be accessed on the thread they were created.
@@ -99,16 +96,7 @@ public class MainFrgmt extends PageFrgmtBase {
         new AsyncTask<Void, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(Void... data) {
-                MainResponse maindata = NetHelper.getInstance().get(NetHelper.MAIN, MainResponse.class);
-                if (maindata == null) {
-                    return false;
-                }
 
-                if (mLog.isDebugEnabled()) {
-                    mLog.debug("SIZE: " + maindata.getRecommandationList().size() + ", " + maindata.getFamousList().size());
-                }
-
-                DataManager.getInstance().setMainResponse(maindata);
 
                 return true;
             }

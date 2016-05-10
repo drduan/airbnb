@@ -15,23 +15,31 @@
  * limitations under the License.
  */
 
-package net.sarangnamu.cloneairbnb.page;
+package net.sarangnamu.cloneairbnb.page.sub;
 
-import android.view.View;
+import android.widget.ImageView;
 
+import net.sarangnamu.cloneairbnb.BkApp;
 import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.common.InflateFrgmtBase;
+import net.sarangnamu.common.ui.LpInst;
 
-import butterknife.ButterKnife;
+import butterknife.Bind;
 
 /**
- * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 23.. <p/>
+ * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 5. 10.. <p/>
  */
-public class PageFrgmtBase extends InflateFrgmtBase {
+public class SplashFrgmt extends InflateFrgmtBase {
+    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(SplashFrgmt.class);
+
+    @Bind(R.id.splash_icon) ImageView mIcon;
+
     @Override
     protected void initLayout() {
-        mBaseView.setAlpha(0);
-        mBaseView.setTranslationX(dpToPixel(80));
-        mBaseView.animate().alpha(1).setDuration(200).translationX(dpToPixel(0));
+        mBaseView.setLayoutParams(LpInst.frame(BkApp.screenX(), BkApp.screenY()));
+    }
+
+    public void setClose() {
+        mIcon.setBackgroundResource(R.drawable.ic_directions_bus_pink_140dp);
     }
 }

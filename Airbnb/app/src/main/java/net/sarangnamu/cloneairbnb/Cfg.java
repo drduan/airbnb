@@ -15,15 +15,13 @@
  * limitations under the License.
  */
 
-package net.sarangnamu.cloneairbnb.models;
-
-import net.sarangnamu.cloneairbnb.BkApp;
+package net.sarangnamu.cloneairbnb;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 15.. <p/>
  */
 public class Cfg extends BkApp{
-    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(Cfg.class);
+    public static final int SPLASH_DELAY = 500;
 
     public static final String USERINFO = "Burke Choi";
 }
