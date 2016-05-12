@@ -17,11 +17,12 @@
 
 package net.sarangnamu.cloneairbnb.page.sub;
 
-import android.view.View;
-
+import net.sarangnamu.cloneairbnb.DataManager;
 import net.sarangnamu.cloneairbnb.R;
+import net.sarangnamu.cloneairbnb.models.MessageData;
 import net.sarangnamu.cloneairbnb.page.EmptyFrgmtBase;
-import net.sarangnamu.cloneairbnb.page.PageFrgmtBase;
+
+import java.util.List;
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 3. 21.. <p/>
@@ -33,6 +34,12 @@ public class MessageFrgmt extends EmptyFrgmtBase {
     protected void initLayout() {
         super.initLayout();
 
-        showEmptyLayout(getResources().getStringArray(R.array.message_empty));
+        List<MessageData> dataList = DataManager.getInstance().getMessageList();
+        if (dataList.size() == 0) {
+            showEmptyLayout(getResources().getStringArray(R.array.message_empty), R.drawable.test3);
+            return ;
+        }
+
+        // instance message layout
     }
 }

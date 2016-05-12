@@ -19,6 +19,7 @@ package net.sarangnamu.cloneairbnb;
 
 import android.os.AsyncTask;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import net.sarangnamu.cloneairbnb.page.sub.MessageFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.SplashFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.TravelFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.WishFrgmt;
+import net.sarangnamu.common.ui.FrameBase;
 import net.sarangnamu.common.ui.tab.BkTab;
 
 import org.slf4j.Logger;
@@ -41,6 +43,10 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * 헐 -_ - 따라만들다 보니 앱 디자인이 변경됨 ㅋㅋㅋㅋㅋ
+ * 스샷이라도 나둘 걸 그랬나 -_ -;
+ */
 public class MainActivity extends AppCompatActivity {
     private static final Logger mLog = LoggerFactory.getLogger(MainActivity.class);
 
@@ -57,8 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        initSplash();
-        loadData();
+        if (savedInstanceState == null) {
+            initSplash();
+            loadData();
+        }
     }
 
     private void initSplash() {
@@ -140,22 +148,27 @@ public class MainActivity extends AppCompatActivity {
                     return ;
                 }
 
-                SplashFrgmt splash = (SplashFrgmt) TabPageManager.getInstance(MainActivity.this).getCurrentFragment();
+                final SplashFrgmt splash = (SplashFrgmt) TabPageManager.getInstance(MainActivity.this).getCurrentFragment();
                 if (splash == null) {
                     mLog.error("ERROR, NOT FOUND SPLASH FRAGMENT");
                     finish();
                     return ;
                 }
 
-                splash.setClose();
+                splash.setChangedIcon(true);
 
                 mDrawerLayout.postDelayed(() -> {
+                    mShowSplash = false;
+
+                    Fragment frgmt = TabPageManager.getInstance(MainActivity.this).getCurrentFragment();
+                    if (frgmt instanceof SplashFrgmt) {
+                        TabPageManager.getInstance(MainActivity.this).popBack();
+                        ((SplashFrgmt) frgmt).setChangedIcon(false);
+                    }
+
                     initTab();
                     initLayout();
                     initNavigationMenu();
-
-                    mShowSplash = false;
-                    TabPageManager.getInstance(MainActivity.this).popBack();
                 }, Cfg.SPLASH_DELAY);
             }
         }.execute();

@@ -29,4 +29,9 @@ public class TravelAfterFrgmt extends InflateFrgmtBase {
     protected void initLayout() {
 
     }
+
+    @Override
+    protected String getPrefixForPage() {
+        return "";
+    }
 }

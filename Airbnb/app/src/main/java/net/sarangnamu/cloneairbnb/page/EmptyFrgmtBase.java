@@ -17,14 +17,16 @@
 
 package net.sarangnamu.cloneairbnb.page;
 
-import android.support.annotation.StringRes;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.cloneairbnb.TabPageManager;
 import net.sarangnamu.cloneairbnb.page.sub.MainFrgmt;
+import net.sarangnamu.common.ui.LpInst;
 
 import butterknife.ButterKnife;
 
@@ -34,30 +36,30 @@ import butterknife.ButterKnife;
 public class EmptyFrgmtBase extends PageFrgmtBase implements View.OnClickListener {
     private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(EmptyFrgmtBase.class);
 
-    protected TextView mTitle;
-    protected TextView mMsgTitle;
-    protected TextView mMsgContent;
-    protected Button mMsgButton;
+    protected FrameLayout mEmptyLayout;
+    protected TextView mEmptyBigTitle;
+    protected TextView mEmptyTitle;
+    protected TextView mEmptyDetail;
+    protected Button mEmptySearch;
 
-    @Override
-    protected void initLayout() {
-        super.initLayout();
-    }
+    protected void showEmptyLayout(String[] msg, @DrawableRes int bgId) {
+        View empty = inflate(R.layout.empty, mBaseView);
 
-    protected void showEmptyLayout(String[] msg) {
-        View empty = inflate(R.layout.empty);
-
-        mTitle      = ButterKnife.findById(empty, R.id.title);
-        mMsgTitle   = ButterKnife.findById(empty, R.id.msg_title);
-        mMsgContent = ButterKnife.findById(empty, R.id.msg_content);
-        mMsgButton  = ButterKnife.findById(empty, R.id.msg_btn);
+        mEmptyLayout   = ButterKnife.findById(empty, R.id.empty_layout);
+        mEmptyBigTitle = ButterKnife.findById(empty, R.id.empty_big_title);
+        mEmptyTitle    = ButterKnife.findById(empty, R.id.empty_title);
+        mEmptyDetail   = ButterKnife.findById(empty, R.id.empty_detail);
+        mEmptySearch   = ButterKnife.findById(empty, R.id.empty_search);
 
         int i = 0;
-        mTitle.setText(msg[i++]);
-        mMsgTitle.setText(msg[i++]);
-        mMsgContent.setText(msg[i++]);
-        mMsgButton.setText(msg[i++]);
-        mMsgButton.setOnClickListener(this);
+        empty.setLayoutParams(LpInst.frameMm());
+        mEmptyLayout.setLayoutParams(LpInst.frameMm());
+        mEmptyLayout.setBackgroundResource(bgId);
+        mEmptyBigTitle.setText(msg[i++]);
+        mEmptyTitle.setText(msg[i++]);
+        mEmptyDetail.setText(msg[i++]);
+        mEmptySearch.setText(msg[i]);
+        mEmptySearch.setOnClickListener(this);
 
         mBaseView.addView(empty);
     }

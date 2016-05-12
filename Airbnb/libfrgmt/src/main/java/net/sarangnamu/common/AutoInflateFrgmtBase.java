@@ -36,22 +36,22 @@ public abstract class AutoInflateFrgmtBase extends InflateFrgmtBase {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBaseView = (ViewGroup) inflate(getLayoutId());
+        mBaseView = (ViewGroup) inflater.inflate(getLayoutId(), container, false);
 
-        autoInflate();
+        autoInflate(inflater);
         initLayout();
 
         return mBaseView;
     }
 
-    private void autoInflate() {
+    private void autoInflate(LayoutInflater inflater) {
         int id = getLayoutIdentifier();
 
         // base <- pageContent <- other View (class_name.xml)
         mPageContent = (ViewGroup) mBaseView.findViewById(getPageContentId());
 
         if (id != 0) {
-            mView = inflate(id);
+            mView = inflater.inflate(id, mPageContent, false);
             mPageContent.addView(mView);
         } else {
             mLog.error("initLayout, not found layout id for pageContent");

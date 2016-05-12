@@ -21,7 +21,7 @@ package net.sarangnamu.cloneairbnb;
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 15.. <p/>
  */
 public class Cfg extends BkApp{
-    public static final int SPLASH_DELAY = 500;
+    public static final int SPLASH_DELAY = 1000;
 
     public static final String USERINFO = "Burke Choi";
 }

@@ -20,10 +20,10 @@ package net.sarangnamu.cloneairbnb.models;
 import io.realm.RealmObject;
 
 /**
- * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 25.. <p/>
+ * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 5. 10.. <p/>
  */
-public class RecommandationData extends RealmObject {
+public class MessageData extends RealmObject {
     public String title;
-    public String description;
-
+    public String detail;
+    public long date;
 }

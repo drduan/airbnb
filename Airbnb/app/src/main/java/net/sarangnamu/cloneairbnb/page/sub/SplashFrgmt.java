@@ -30,8 +30,6 @@ import butterknife.Bind;
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 5. 10.. <p/>
  */
 public class SplashFrgmt extends InflateFrgmtBase {
-    private static final org.slf4j.Logger mLog = org.slf4j.LoggerFactory.getLogger(SplashFrgmt.class);
-
     @Bind(R.id.splash_icon) ImageView mIcon;
 
     @Override
@@ -39,7 +37,10 @@ public class SplashFrgmt extends InflateFrgmtBase {
         mBaseView.setLayoutParams(LpInst.frame(BkApp.screenX(), BkApp.screenY()));
     }
 
-    public void setClose() {
-        mIcon.setBackgroundResource(R.drawable.ic_directions_bus_pink_140dp);
+    public void setChangedIcon(boolean enable) {
+        mIcon.setBackgroundResource(enable ?
+                R.drawable.ic_directions_bus_pink_140dp :
+                R.drawable.ic_directions_bus_black_140dp);
+        mIcon.invalidate();
     }
 }

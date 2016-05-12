@@ -93,25 +93,9 @@ public class MainFrgmt extends PageFrgmtBase {
         // Realm objects can only be accessed on the thread they were created.
         DataManager.getInstance().initRecentlyData();
 
-        new AsyncTask<Void, Void, Boolean>() {
-            @Override
-            protected Boolean doInBackground(Void... data) {
-
-
-                return true;
-            }
-
-            @Override
-            protected void onPostExecute(Boolean result) {
-                if (!result) {
-                    return ;
-                }
-
-                setRecentlyList();
-                setRecommandationList();
-                setFamousList();
-            }
-        }.execute();
+        setRecentlyList();
+        setRecommandationList();
+        setFamousList();
     }
 
     private void setFadeImageHeight() {

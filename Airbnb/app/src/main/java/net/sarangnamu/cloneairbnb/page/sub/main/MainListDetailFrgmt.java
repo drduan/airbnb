@@ -32,7 +32,7 @@ public class MainListDetailFrgmt extends InflateFrgmtBase {
     protected void initLayout() {
         // 알 수 없는 이유로 view 의 size 가 wrap_content 형태로 동작 함
 
-        mBaseView.setLayoutParams(LpInst.frame(BkApp.screenX(), BkApp.screenY()));
+//        mBaseView.setLayoutParams(LpInst.frame(BkApp.screenX(), BkApp.screenY()));
 
         // hide tab menu
 //        ((MainActivity) getActivity()).setVisibleTabMenu(false);

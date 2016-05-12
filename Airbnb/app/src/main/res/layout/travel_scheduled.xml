@@ -27,6 +27,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Scheduled"
+        android:text="헐 따라만들다 보니\n앱 디자인이 변경됨\n개발은 여기까지 ㄷ ㄷ "
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 </LinearLayout>

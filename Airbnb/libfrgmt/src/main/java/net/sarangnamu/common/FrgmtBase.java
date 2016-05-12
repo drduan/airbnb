@@ -18,6 +18,7 @@
 package net.sarangnamu.common;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +34,11 @@ public abstract class FrgmtBase extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBaseView = (ViewGroup) inflate(getLayoutId());
+//        mBaseView = (ViewGroup) inflater.inflate(getLayoutId(), container, false);
+        mBaseView = inflate(getLayoutId(), container);
         mBaseView.setBackgroundColor(0xffffffff);
+        mBaseView.setClickable(true);
+
         ButterKnife.bind(this, mBaseView);
         initLayout();
 
@@ -49,8 +53,8 @@ public abstract class FrgmtBase extends Fragment {
         return DimTool.dpToPixel(getActivity(), dp);
     }
 
-    protected View inflate(int id) {
-        return LayoutInflater.from(getActivity()).inflate(id, null);
+    protected ViewGroup inflate(@LayoutRes int resid, ViewGroup container) {
+        return (ViewGroup) LayoutInflater.from(getContext()).inflate(resid, container, false);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
