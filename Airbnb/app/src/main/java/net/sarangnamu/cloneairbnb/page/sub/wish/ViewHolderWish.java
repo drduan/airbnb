@@ -25,8 +25,8 @@ import android.view.ViewGroup;
 
 import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.cloneairbnb.models.WishData;
-import net.sarangnamu.common.v7.BkViewHolder;
-import net.sarangnamu.common.v7.IBkAdapterData;
+import net.sarangnamu.common.v7.adapter.BkViewHolder;
+import net.sarangnamu.common.v7.adapter.IBkAdapterData;
 
 import butterknife.Bind;
 

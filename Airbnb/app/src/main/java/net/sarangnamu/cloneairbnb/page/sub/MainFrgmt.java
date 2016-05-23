@@ -19,7 +19,6 @@ package net.sarangnamu.cloneairbnb.page.sub;
 
 import android.animation.Animator;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
@@ -44,8 +43,8 @@ import net.sarangnamu.cloneairbnb.page.sub.main.ViewHolderRecommandation;
 import net.sarangnamu.common.ani.AnimatorEndListener;
 import net.sarangnamu.common.ui.image.BkFadeImageView;
 import net.sarangnamu.common.ui.scroll.BkScrollView;
-import net.sarangnamu.common.v7.BkAdapter;
-import net.sarangnamu.common.v7.IBkAdapterData;
+import net.sarangnamu.common.v7.adapter.BkAdapter;
+import net.sarangnamu.common.v7.adapter.IBkAdapterData;
 
 import java.util.ArrayList;
 

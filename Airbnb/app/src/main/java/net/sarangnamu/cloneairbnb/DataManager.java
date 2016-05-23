@@ -23,7 +23,7 @@ import net.sarangnamu.cloneairbnb.models.MessageData;
 import net.sarangnamu.cloneairbnb.models.RecentlyData;
 import net.sarangnamu.cloneairbnb.models.WishData;
 import net.sarangnamu.cloneairbnb.net.domain.MainResponse;
-import net.sarangnamu.common.v7.IBkAdapterData;
+import net.sarangnamu.common.v7.adapter.IBkAdapterData;
 
 import java.util.List;
 

@@ -27,8 +27,8 @@ import net.sarangnamu.cloneairbnb.models.MessageData;
 import net.sarangnamu.cloneairbnb.models.WishData;
 import net.sarangnamu.cloneairbnb.page.EmptyFrgmtBase;
 import net.sarangnamu.cloneairbnb.page.sub.wish.ViewHolderWish;
-import net.sarangnamu.common.v7.BkAdapter;
-import net.sarangnamu.common.v7.IBkAdapterData;
+import net.sarangnamu.common.v7.adapter.BkAdapter;
+import net.sarangnamu.common.v7.adapter.IBkAdapterData;
 
 import java.util.List;
 

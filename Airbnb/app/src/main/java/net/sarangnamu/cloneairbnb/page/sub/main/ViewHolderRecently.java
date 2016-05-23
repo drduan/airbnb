@@ -27,8 +27,8 @@ import android.widget.ToggleButton;
 
 import net.sarangnamu.cloneairbnb.R;
 import net.sarangnamu.cloneairbnb.models.RecentlyData;
-import net.sarangnamu.common.v7.BkViewHolder;
-import net.sarangnamu.common.v7.IBkAdapterData;
+import net.sarangnamu.common.v7.adapter.BkViewHolder;
+import net.sarangnamu.common.v7.adapter.IBkAdapterData;
 
 import java.util.Objects;
 

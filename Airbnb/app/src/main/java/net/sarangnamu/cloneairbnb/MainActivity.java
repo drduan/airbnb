@@ -32,7 +32,6 @@ import net.sarangnamu.cloneairbnb.page.sub.MessageFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.SplashFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.TravelFrgmt;
 import net.sarangnamu.cloneairbnb.page.sub.WishFrgmt;
-import net.sarangnamu.common.ui.FrameBase;
 import net.sarangnamu.common.ui.tab.BkTab;
 
 import org.slf4j.Logger;
@@ -59,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
