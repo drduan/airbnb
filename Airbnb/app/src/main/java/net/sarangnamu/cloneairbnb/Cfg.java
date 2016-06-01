@@ -17,11 +17,13 @@
 
 package net.sarangnamu.cloneairbnb;
 
+import net.sarangnamu.common.BkCfg;
+
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 4. 15.. <p/>
  */
-public class Cfg extends BkApp{
-    public static final int SPLASH_DELAY = 1000;
+public class Cfg extends BkCfg {
+    public static final int SPLASH_DELAY = 2000;
 
     public static final String USERINFO = "Burke Choi";
 }

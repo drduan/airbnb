@@ -18,9 +18,7 @@
 package net.sarangnamu.common.ui.tab;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -30,18 +28,13 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TabHost;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import net.sarangnamu.common.frgmt.FrgmtManager;
 
@@ -70,6 +63,7 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
     protected void initLayout() {
         setOrientation(HORIZONTAL);
         setGravity(Gravity.CENTER);
+        setBackgroundColor(0xFFFFFFFF);
     }
 
     public int dpToPixel(float dp) {
@@ -104,7 +98,8 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
                     bkbtn.setText(null);
                 } else {
                     BkTextData txtData = (BkTextData) data;
-                    bkbtn.setTextResId(data.getResId(), txtData.getColorStateId());
+                    bkbtn.setTextResId(data.getResId(), txtData.getTextColorId());
+//                    bkbtn.setButtonDrawable();
                 }
 
                 if (data.clazz == null) {
@@ -121,7 +116,11 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
             view.setId(i++);
             view.setPadding(0, mPadding, 0, mPadding);
             view.setLayoutParams(getRadioButtonLayoutParams());
-            view.setBackgroundColor(0xffdedede);
+
+            if (data.getBackgroundColor() != 0) {
+                view.setBackgroundColor(data.getBackgroundColor());
+            }
+
             view.setDuplicateParentStateEnabled(true);
 
             addView(view);
@@ -183,15 +182,28 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
             this.clazz = clazz;
         }
 
+        public BkImageData(@DrawableRes int drawid, @ColorRes int bgcolor, Class<?> clazz) {
+            this.resid = drawid;
+            this.clazz = clazz;
+            this.bgcolor = bgcolor;
+        }
+
         public BkImageData(@DrawableRes int drawid, View.OnClickListener click) {
             this.resid = drawid;
             this.clazz = null;
             this.click = click;
         }
+
+        public BkImageData(@DrawableRes int drawid, @ColorRes int bgcolor, View.OnClickListener click) {
+            this.resid = drawid;
+            this.clazz = null;
+            this.click = click;
+            this.bgcolor = bgcolor;
+        }
     }
 
     public static class BkTextData extends BkData {
-        int colorId;
+        int textColorId;
 
         public BkTextData(@StringRes int strid, Class<?> clazz) {
             this.resid = strid;
@@ -204,12 +216,20 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
             this.click = click;
         }
 
-        public void setColorStateId(@DrawableRes int resid) {
-            colorId = resid;
+        public void setTextColorId(@DrawableRes int resid) {
+            textColorId = resid;
         }
 
-        public @DrawableRes int getColorStateId() {
-            return colorId;
+        public @DrawableRes int getTextColorId() {
+            return textColorId;
+        }
+
+        public void setBackgroundColorId(@DrawableRes int resid) {
+            this.bgcolor = resid;
+        }
+
+        public @DrawableRes int getBackgroundColorId() {
+            return this.bgcolor;
         }
     }
 
@@ -217,6 +237,7 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
         protected int resid;
         protected Class<?> clazz;
         protected View.OnClickListener click;
+        protected int bgcolor = 0;
 
         public int getResId() {
             return resid;
@@ -228,6 +249,14 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
 
         public View.OnClickListener getClickListener() {
             return click;
+        }
+
+        public void setBackgroundColor(@ColorRes int bgcolor) {
+            this.bgcolor = bgcolor;
+        }
+
+        public int getBackgroundColor() {
+            return bgcolor;
         }
     }
 
@@ -276,8 +305,8 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
 
             mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
             mTextPaint.setTextSize(getTextSize());
-            mTextPaint.density = getResources().getDisplayMetrics().density;
             mTextPaint.setTextAlign(Paint.Align.CENTER);
+            mTextPaint.density = getResources().getDisplayMetrics().density;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 setTextColor(getResources().getColorStateList(colorid, null));

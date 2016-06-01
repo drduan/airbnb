@@ -76,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
     private void initTab() {
         ArrayList<BkTab.BkData> data = new ArrayList<>();
 
-        data.add(new BkTab.BkImageData(R.drawable.selector_tab, MainFrgmt.class));
-        data.add(new BkTab.BkImageData(R.drawable.selector_tab, WishFrgmt.class));
-        data.add(new BkTab.BkImageData(R.drawable.selector_tab, MessageFrgmt.class));
-        data.add(new BkTab.BkImageData(R.drawable.selector_tab, TravelFrgmt.class));
-        data.add(new BkTab.BkImageData(R.drawable.selector_tab, v -> {
+        data.add(new BkTab.BkImageData(R.drawable.selector_tab, android.R.color.white, MainFrgmt.class));
+        data.add(new BkTab.BkImageData(R.drawable.selector_tab, android.R.color.white, WishFrgmt.class));
+        data.add(new BkTab.BkImageData(R.drawable.selector_tab, android.R.color.white, MessageFrgmt.class));
+        data.add(new BkTab.BkImageData(R.drawable.selector_tab, android.R.color.white, TravelFrgmt.class));
+        data.add(new BkTab.BkImageData(R.drawable.selector_tab, android.R.color.white, v -> {
             mDrawerLayout.openDrawer(Gravity.RIGHT);
         }));
 
@@ -162,7 +162,12 @@ public class MainActivity extends AppCompatActivity {
 
                     Fragment frgmt = TabPageManager.getInstance(MainActivity.this).getCurrentFragment();
                     if (frgmt instanceof SplashFrgmt) {
-                        TabPageManager.getInstance(MainActivity.this).popBack();
+                        try {
+                            TabPageManager.getInstance(MainActivity.this).popBack();
+                        } catch (Exception e) {
+
+                        }
+
                         ((SplashFrgmt) frgmt).setChangedIcon(false);
                     }
 

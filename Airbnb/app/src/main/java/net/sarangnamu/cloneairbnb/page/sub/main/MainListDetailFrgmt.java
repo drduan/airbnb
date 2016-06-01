@@ -17,8 +17,11 @@
 
 package net.sarangnamu.cloneairbnb.page.sub.main;
 
-import net.sarangnamu.cloneairbnb.BkApp;
-import net.sarangnamu.cloneairbnb.MainActivity;
+import android.support.annotation.LayoutRes;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import net.sarangnamu.common.BkApp;
 import net.sarangnamu.common.InflateFrgmtBase;
 import net.sarangnamu.common.ui.LpInst;
 
@@ -30,12 +33,7 @@ public class MainListDetailFrgmt extends InflateFrgmtBase {
 
     @Override
     protected void initLayout() {
-        // 알 수 없는 이유로 view 의 size 가 wrap_content 형태로 동작 함
-
-//        mBaseView.setLayoutParams(LpInst.frame(BkApp.screenX(), BkApp.screenY()));
-
-        // hide tab menu
-//        ((MainActivity) getActivity()).setVisibleTabMenu(false);
+        mBaseView.setLayoutParams(LpInst.frame(BkApp.screenX(), BkApp.screenY()));
     }
 
     @Override

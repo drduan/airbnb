@@ -50,7 +50,7 @@ public class TravelFrgmt extends PageFrgmtBase {
 
         for (BkTab.BkData text : data) {
             BkTab.BkTextData textdata = (BkTab.BkTextData) text;
-            textdata.setColorStateId(R.drawable.selector_travel_tab);
+            textdata.setTextColorId(R.drawable.selector_travel_tab);
         }
 
         mTab.setButtonPadding(10);

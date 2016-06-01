@@ -19,10 +19,13 @@ package net.sarangnamu.cloneairbnb.page.sub;
 
 import android.widget.ImageView;
 
-import net.sarangnamu.cloneairbnb.BkApp;
 import net.sarangnamu.cloneairbnb.R;
+import net.sarangnamu.common.BkApp;
 import net.sarangnamu.common.InflateFrgmtBase;
 import net.sarangnamu.common.ui.LpInst;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import butterknife.Bind;
 
@@ -30,6 +33,8 @@ import butterknife.Bind;
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2016. 5. 10.. <p/>
  */
 public class SplashFrgmt extends InflateFrgmtBase {
+    private static final Logger mLog = LoggerFactory.getLogger(SplashFrgmt.class);
+
     @Bind(R.id.splash_icon) ImageView mIcon;
 
     @Override
