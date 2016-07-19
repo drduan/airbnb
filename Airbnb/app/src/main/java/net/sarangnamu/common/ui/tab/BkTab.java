@@ -64,6 +64,8 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
         setOrientation(HORIZONTAL);
         setGravity(Gravity.CENTER);
         setBackgroundColor(0xFFFFFFFF);
+//        setScrollContainer(true);
+//        setOverScrollMode(OVER_SCROLL_NEVER);
     }
 
     public int dpToPixel(float dp) {
@@ -286,7 +288,8 @@ public class BkTab extends RadioGroup implements RadioGroup.OnCheckedChangeListe
         }
         
         protected void initLayout() {
-        
+//            setScrollContainer(true);
+//            setOverScrollMode(OVER_SCROLL_NEVER);
         }
 
         public void setTextResId(@StringRes int resid, int colorid) {
